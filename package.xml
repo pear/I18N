@@ -32,13 +32,13 @@ Localizing Numbers, DateTime and currency is also implemented.
     </maintainers>
 
     <release>
-        <version>0.8.4</version>
+        <version>0.8.5</version>
         <license>PHP</license>
         <state>beta</state>
-        <date>2002-12-02</date>
+        <date>2002-??-??</date>
         <notes>
-            - optimize the translate routine in I18N_Messages_Translate
-            - bugfix in DateTime which was sometimes translating strange things
+            - added french support, by Aurélien Tellier
+            - some E_ALL fixes
         </notes>
 
         <filelist>
@@ -87,5 +87,19 @@ Localizing Numbers, DateTime and currency is also implemented.
         </filelist>
 
     </release>
+
+    <changelog>
+        <release>
+            <version>0.8.4</version>
+            <license>PHP</license>
+            <state>beta</state>
+            <date>2002-12-02</date>
+            <notes>
+                - optimize the translate routine in I18N_Messages_Translate
+                - bugfix in DateTime which was sometimes translating strange things
+            </notes>
+        </release>
+    </changelog>
+
 
 </package>

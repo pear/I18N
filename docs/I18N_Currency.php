@@ -7,7 +7,7 @@
 
     require_once 'I18N/Currency.php';
 
-    $locales = array('de_DE','en_US','fr_FR');
+    $locales = array('de_DE','en_US','fr_FR','it_IT');
             
     foreach( $locales as $aLocale )
     {

@@ -21,29 +21,23 @@ class I18N_Common_ru
 {
     var $days = array( 'Воскресенье' , 'Понедельник' , 'Вторник' , 'Среда' , 'Четверг' , 'Пятница' , 'Суббота' );
 
-// in array below the order of days is changed - in Russia Monday is the first day of the week.
-//    var $days = array( 'Понедельник' , 'Вторник' , 'Среда' , 'Четверг' , 'Пятница' , 'Суббота' , 'Воскресенье' );
-
     var $daysAbbreviated = array( 'Вск','Пнд','Втр','Срд','Чтв','Птн','Суб');
-
-// in array below the order of days is changed - in Russia Monday is the first day of the week.
-//    var $daysAbbreviated = array( 'Пнд','Втр','Срд','Чтв','Птн','Суб','Вск');
 
     var $monthsAbbreviated = array( 'Янв' , 'Фев' , 'Мар' , 'Апр' , 'Май' , 'Июн' ,'Июл' , 'Авг' , 'Сен' , 'Окт' , 'Ноя' , 'Дек' );
 
     var $months = array(
-                            'Январь',
-                            'Февраль',
-                            'Март',
-                            'Апрель',
-                            'Май',
-                            'Июнь',
-                            'Июль',
-                            'Август',
-                            'Сентябрь',
-                            'Октябрь',
-                            'Ноябрь',
-                            'Декабрь'
+                            'Января',
+                            'Февраля',
+                            'Марта',
+                            'Апреля',
+                            'Мая',
+                            'Июня',
+                            'Июля',
+                            'Августа',
+                            'Сентября',
+                            'Октября',
+                            'Ноября',
+                            'Декабря'
                          );
 
     var $dateFormats = array(

@@ -19,7 +19,7 @@
                                      
     echo 'require_once \'I18N/DateTime.php\';<br>';
     echo '$dateTime = new I18N_DateTime( \''.$lang.'\' );<br><br>';
-    $dateTime = new I18N_DateTime( $lang );
+    $dateTime =& I18N_DateTime::singleton($lang);
 
 
     // 

@@ -35,12 +35,12 @@ Localizing Numbers, DateTime and currency is also implemented.
         <version>0.8.5</version>
         <license>PHP</license>
         <state>beta</state>
-        <date>2002-03-10</date>
-        <notes>                 
-            - added italian support by Lorenzo Alberton
-            - added french support by Aurélien Tellier
-            - some E_ALL fixes
-            - I18N_Message add option 'caseSensitive'
+        <date>2002-03-11</date>
+        <notes>
+* added italian support by Lorenzo Alberton
+* added french support by Aurélien Tellier
+* some E_ALL fixes
+* I18N_Message add option 'caseSensitive'
         </notes>
 
         <filelist>

@@ -293,7 +293,7 @@ class I18N_Country extends I18N_Common {
      * 
      *  @return: void
      *  @access: private
-     * /
+     */
     function _constructor()
     {
         $this->I18N_Country();
@@ -313,7 +313,7 @@ class I18N_Country extends I18N_Common {
 
     // }}
     // {{ getName()
-  
+
     /**
      * Return name of the country for country code passed
      * 

@@ -101,14 +101,14 @@ class I18N_Format extends PEAR
     *   @param      string  defines a custom format
     *   @return     int     the format-id, to be used with the format-method
     */
-    function setFormat( $format )
+    function setFormat($format)
     {
-        return $this->_setFormat( $format );
+        return $this->_setFormat($format);
     }
 
-    function _setFormat( $format , $what='' )
+    function _setFormat($format,$what='')
     {
-        if( (int)$format === $format ) {         // shall we only set the format to an already defined format?
+        if((int)$format===$format) {         // shall we only set the format to an already defined format?
             return $this->{'_current'.ucfirst($what).'Format'} = $format;
         }          
 

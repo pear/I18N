@@ -102,9 +102,9 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function format( $timestamp=null , $format=null )
+    function format($timestamp=null,$format=null)
     {
-        return $this->_format($timestamp , $format );
+        return $this->_format($timestamp,$format);
     }
 
     /**
@@ -121,7 +121,7 @@ class I18N_DateTime extends I18N_Format
     */
     function formatDate( $timestamp=null , $format=null )
     {
-        return $this->_formatDateTime($timestamp , $format , 'date' );
+        return $this->_formatDateTime($timestamp,$format,'date');
     }
 
     /**
@@ -138,7 +138,7 @@ class I18N_DateTime extends I18N_Format
     */
     function formatTime( $timestamp=null , $format=null )
     {
-        return $this->_formatDateTime($timestamp , $format , 'time' );
+        return $this->_formatDateTime($timestamp,$format,'time');
     }
 
     /**
@@ -155,26 +155,22 @@ class I18N_DateTime extends I18N_Format
     */
     function _format( $timestamp , $format )
     {
-        if( $format == null ){
+        if ($format == null){
             $format = $this->getFormat();
         }
-        if( $timestamp == null ){
+        if ($timestamp == null){
             $timestamp = time();
         }
 
-        if( $format >= I18N_CUSTOM_FORMATS_OFFSET )
-        {
-            if( isset($this->_customFormats[$format]) )
-            {
-                return $this->_translate(date( $this->_customFormats[$format] , $timestamp ));
-            }
-            else
-            {
+        if ($format >= I18N_CUSTOM_FORMATS_OFFSET) {
+            if (isset($this->_customFormats[$format])) {
+                return $this->_translate(date($this->_customFormats[$format],$timestamp));
+            } else {
                 $format = I18N_DATETIME_DEFAULT;
             }
         }
-
-        return $this->_formatDateTime( $timestamp , $format , 'date' ).' '.$this->_formatDateTime( $timestamp , $format , 'time' );
+        return  $this->_formatDateTime($timestamp,$format,'date').' '.
+                $this->_formatDateTime($timestamp,$format,'time');
     }
 
     /**
@@ -191,28 +187,24 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     private
     */
-    function _formatDateTime( $timestamp , $format , $what )
+    function _formatDateTime($timestamp,$format,$what)
     {
         $getFormatMethod = 'get'.ucfirst($what).'Format';
-        if( $format == null ){
+        if ($format == null){
             $format = $this->$getFormatMethod();
         }
-        if( $timestamp == null ){
+        if ($timestamp == null){
             $timestamp = time();
         }
                  
         $curFormat = I18N_DATETIME_DEFAULT;// just in case the if's below dont find nothing
         $formatArray = $what.'Formats';
-        if( isset($this->_localeObj->{$formatArray}[$format]) )
-        {
+        if (isset($this->_localeObj->{$formatArray}[$format])) {
             $curFormat = $this->_localeObj->{$formatArray}[$format];
-        }
-        elseif( isset($this->_customFormats[$format]) )
-        {
+        } elseif(isset($this->_customFormats[$format])) {
             $curFormat = $this->_customFormats[$format];
         }
-
-        return $this->_translate(date( $curFormat , $timestamp ));
+        return $this->_translate(date($curFormat,$timestamp));
     }
 
     /**
@@ -228,7 +220,7 @@ class I18N_DateTime extends I18N_Format
     {
 //FIXXME optimize this array, use only those that are in the format string, i.e. if no abbreviated formats are used
 // dont put the abbreviated's in this array ....
-        $translateArrays = array( 'days' , 'months' , 'daysAbbreviated' , 'monthsAbbreviated' );
+        $translateArrays = array('days','months','daysAbbreviated','monthsAbbreviated');
 
         // this seems a bit difficult i guess,
         // but i had problems with the way i did it before, which way simply str_replace the
@@ -237,22 +229,17 @@ class I18N_DateTime extends I18N_Format
         // is the abbreviated weekday for Monday. 
         // if i would turn it around and translate the abbreviated words first it would screw up worse
         
-        // so waht i do now is searching for the position of words which can be translated and
+        // so what i do now is searching for the position of words which can be translated and
         // remember the position (using strpos) and dont translate a word at this position a second
         // time. this at least prevents the case described above. i hope it covers everything else too
         // for me it works quite well now
         $translateSrc =  array();
         $translateDest = array();
         $prevPositions = array();
-        foreach( $translateArrays as $aArray )
-        {
-            if( isset($this->_localeObj->{$aArray}))
-            {
-                foreach( $this->{$aArray} as $index=>$aWord )
-                {
-                    if( ($pos=strpos( $string , $aWord ))!==false &&
-                        !in_array( $pos , $prevPositions ) )
-                    {
+        foreach ($translateArrays as $aArray) {
+            if (isset($this->_localeObj->{$aArray})) {
+                foreach ($this->{$aArray} as $index=>$aWord) {
+                    if (($pos=strpos($string,$aWord))!==false && !in_array($pos,$prevPositions)) {
                         $translateSrc[] = $aWord;
                         $translateDest[] = $this->_localeObj->{$aArray}[$index];
                         $prevPositions[] = $pos;
@@ -260,10 +247,8 @@ class I18N_DateTime extends I18N_Format
                 }
             }
         }
-                      
         // here we actually replace the strings (translate:-)) that we found, when checking for their position
-        $string = str_replace( $translateSrc , $translateDest , $string );
-
+        $string = str_replace($translateSrc,$translateDest,$string);
         return $string;
     }
 
@@ -333,9 +318,9 @@ class I18N_DateTime extends I18N_Format
     */
     function getMonthName( $which=null , $abbreviated=false )
     {
-        if( $which == null )
+        if ($which==null) {
             $which = $date('n')-1;
-
+        }
         $monthNames = $this->getMonthNames( $abbreviated );
         return $monthNames[$which];
     }
@@ -347,13 +332,13 @@ class I18N_DateTime extends I18N_Format
     *   fallback to english if not defined
     *
     */
-    function getMonthNames( $abbreviated=false )
+    function getMonthNames($abbreviated=false)
     {                                          
         $propName = 'months'.($abbreviated ? 'Abbreviated' : '' );
         return $this->_localeObj->$propName ? $this->_localeObj->$propName : $this->$propName;
     }
 
-    function getDayNames( $abbreviated=false )
+    function getDayNames($abbreviated=false)
     {
         $propName = 'days'.($abbreviated ? 'Abbreviated' : '' );
         return $this->_localeObj->$propName ? $this->_localeObj->$propName : $this->$propName;

@@ -37,10 +37,12 @@ Localizing Numbers, DateTime and currency is also implemented.
         <state>beta</state>
         <date>2002-??-??</date>
         <notes>
+* added singleton() method to DateTime, Number and Currency
 * added russian support by Antony Dovgal
 * added slovenian support by Matej Dakol
 * added portugese by Bruno Pedro
 * hungarian by Kovács Gergely
+* nl+nl_NL Jeroen Houben
         </notes>
 
         <filelist>

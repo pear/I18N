@@ -5,13 +5,15 @@
 <package version="1.0">
     <name>I18N</name>
     <summary>
-        Internationalization package
+Internationalization package
     </summary>
+
     <description>
-        This package supports you to localize your applications.
-        Currently multiple ways of supporting translation are implemented
-        and methods to determine the current users (browser-)language.
+This package supports you to localize your applications.
+Currently multiple ways of supporting translation are implemented
+and methods to determine the current users (browser-)language.
     </description>
+
     <maintainers>
         <maintainer>
             <user>cain</user>
@@ -19,34 +21,47 @@
             <email>wolfram@kriesing.de</email>
             <role>lead</role>
         </maintainer>
+
+        <maintainer>
+            <user>richard</user>
+            <name>Richard Heyes</name>
+            <email>richard@php.net</email>
+            <role>developer</role>
+        </maintainer>
     </maintainers>
+
     <release>
-        <version>0.0.1</version>
+        <version>0.8</version>
         <license>PHP</license>
         <state>devel</state>
-	<date>2002-08-04</date>
+		<date>2002-10-25</date>
         <notes>
-            Initial snapshot release
+            Initial release
         </notes>
+
         <filelist>
             <dir name="/" baseinstalldir="I18N">
-                <file role="php">Common.php</file>
-                <file role="php">Country.php</file>
-                <file role="php">Language.php</file>
-                <file role="php">Negotiator.php</file>
+                <file role="php" name="Common.php" />
+                <file role="php" name="Country.php" />
+                <file role="php" name="Language.php" />
+                <file role="php" name="Negotiator.php" />
+
                 <dir name="Messages">
-                    <file role="php">Common.php</file>
-                    <file role="php">File.php</file>
-                    <file role="php">Translate.php</file>
-                    <file role="php">determineLanguage.inc.php</file>
+                    <file role="php" name="Common.php" />
+                    <file role="php" name="File.php" />
+                    <file role="php" name="Translate.php" />
+                    <file role="php" name="determineLanguage.inc.php" />
                 </dir>
+
                 <dir name="examples" role="doc">
-                    <file role="doc">I18N_Message.php</file>
-                    <file role="doc">I18N_Message_Translate.php</file>
-                    <file role="doc">I18N_Message_Translate.tpl</file>
-                    <file role="doc">I18N_Negotiator.php</file>
+                    <file role="doc" name="I18N_Message.php" />
+                    <file role="doc" name="I18N_Message_Translate.php" />
+                    <file role="doc" name="I18N_Message_Translate.tpl" />
+                    <file role="doc" name="I18N_Negotiator.php" />
                 </dir>
             </dir>
         </filelist>
+
     </release>
+
 </package>

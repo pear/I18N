@@ -14,6 +14,7 @@
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
 // | Authors: Wolfram Kriesing <wolfram@kriesing.de>                      |
+// |          Naoki Shima <naoki@avantexchange.com>                       |
 // +----------------------------------------------------------------------+
 //
 //  $Id$
@@ -196,5 +197,30 @@ class I18N_Messages_Common
         return true;
     }
 
+    /** 
+    * Set charset of message
+    *
+    * @param : string        Charset
+    *
+    * @return: void
+    * @access: public
+    * @author: Naoki Shima <naoki@avantexchange.com>
+    */
+    function setCharset($charset  = I18N_MESSAGES_DEFAULT_CHARSET)
+    {
+        $this->_charset = $charset;
+    }
+
+    /**
+    * Returns charset of message. Returns null if it's not set.
+    *
+    * @return: mixed         Charset
+    * @access: public
+    * @author: Naoki Shima <naoki@avantexchange.com>
+    */
+    function getCharset()
+    {
+        return ($this->_charset ? $this->_charset: false);
+    }
 } // end of class
 ?>

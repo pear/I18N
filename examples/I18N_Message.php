@@ -11,9 +11,11 @@
     $strings[] = 'This is a test for all of you out there';
     $strings[] = 'Das ist ein Test für euch alle da draussen.';
     $strings[] = 'Esto es una prueba para todos vosotros ahi.';
+    // i just copied that from an italian page of a friend :-) but i have no idea what it means 
+    $strings[] = 'Due spiaggie e il porto sono raggiungibili comodamente a piedi.';
 
     foreach( $strings as $aString )
-        print "<b>$aString</b> --- seems to be of the language: ".I18N_Messages_Common::get($aString).'<br>';
+        print "<b>$aString</b> --- seems to be of the language: ".I18N_Messages_Common::determineLanguage($aString).'<br>';
 
 
     /**

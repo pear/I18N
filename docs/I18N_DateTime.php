@@ -3,11 +3,19 @@
     //
     //
 
+//ini_set('include_path',realpath(dirname(__FILE__).'/../../../').':'.realpath(dirname(__FILE__).'/../../../../includes').':'.ini_get('include_path'));
+//ini_set('error_reporting',E_ALL);
     ini_set('include_path',ini_get('include_path').':../..');
+         
+    print "You can set the locale by giving a GET-param i.e. '?lang=fr_FR'<br><br>";
 
     require_once 'I18N/DateTime.php';
 
-    $lang = 'en_US';
+    if (@$_REQUEST['lang']) {
+        $lang = $_REQUEST['lang'];
+    } else {
+        $lang = 'en_US';
+    }
                                      
     echo 'require_once \'I18N/DateTime.php\';<br>';
     echo '$dateTime = new I18N_DateTime( \''.$lang.'\' );<br><br>';

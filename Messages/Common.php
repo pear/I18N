@@ -37,20 +37,6 @@ class I18N_Messages_Common
     // {{ properties
 
     /**
-    *   @var    array   $list   this is simply a list of (all) languages, I extend it whenever a new language is added
-    */
-    var $list = array('en','de','es','fr','it');
-
-    /**
-    *   @var    array   $
-    */
-    var $langString = array('en'=>'english',
-                            'de'=>'german',
-                            'es'=>'spanish',
-                            'fr'=>'french',
-                            'it'=>'italian' );
-
-    /**
     * Holds messageID to corresponding message mapping
     *
     * @type  : array
@@ -91,7 +77,7 @@ class I18N_Messages_Common
 
     // }}
     // {{ determineLanuguage()
-    
+
     /**
     *   trys to get the language of a given string
     *
@@ -102,42 +88,16 @@ class I18N_Messages_Common
     *   @return     string  iso-string for the language
     *
     */
-    function determineLanguage( $string )
+    function determineLanguage( $string , $source='default' )
     {
-        // we make it very simple for now,
-        // this should be done using a db one day, either one that "learns" or one which is already a huge dictionary
-// FIXXME may be each word should be a regular expression, to catch different
-// forms (i.e.: like, likes), this is more relevant for languages other than english
-// but regexps may consume much more time when parsing all the languages ...
-        $languages = array( 'en' => array(  'the','it','this',
-                                            'he','she','him','her','his',
-                                            'who','why','that','what',
-                                            'with','has','been',
-                                            'is','of','from','for'),
-                            'de' => array(  'der','die','das','des','dem',
-                                            'er','sie','es','ich','du','wir','ihr',
-                                            'warum','wieso','wie','wo','weshalb','was',
-                                            'habe','haben','machen','tun','ist'),
-                            'es' => array(  'lo','la','las','los','esto','es',
-                                            'el','yo','tu','ella','su','mi','ti',
-                                            'por','que','cuanto','cuando','donde',
-                                            'para','desde','hasta','luego','por','y','o','con',
-                                            'hacer','hace','tener','esta','estar'),
-                            'fr' => array(  'le','la','les',
-                                            'je','tu','il','elle','nous','vous','ils','elles','ma','mon','ta','ton','notre','votre',
-                                            'por','quoi','quand','qui','ou','combien',
-                                            'pour','par','apres','ce','mais','et','ou','oui','non','en','avec',
-                                            'suis','est','avoir'),
 
-                            // italian provided by: Simone Cortesi <simone@cortesi.com>
-                            'it' => array(  'il','lo','la','i','gli','le',
-                                            'questo','quello',
-                                            'io','tu','lui','lei','ella','egli','noi','voi','loro','essi',
-                                            'mio','tuo','suo','nostro','vostro',
-                                            'chi','perché','perche','quanto','quando','dove',
-                                            'di','a','da','in','con','su','per','tra','fra',
-                                            'essere','fare','avere')
-                          );
+        // include a file here, so one can provide its own file,
+        // and to reduce compile time for php, since it will only be included when needed
+        // the file that gets included might become very big
+        if( $source=='default' )
+            require_once('I18N/Messages/determineLanguage.inc.php');
+        else
+            require_once($source);  // include the file given as parameter, it only needs to provide an array, as in the above included file
 
         // replace all non word-characters by a space, i hope that is ok for all languages
         $string = preg_replace( '/[\W\s]/' , ' ' ,$string);
@@ -163,10 +123,10 @@ class I18N_Messages_Common
     // {{ get()
 
     /**
-    * Look for and return the message corresponds to the messageID passed. 
+    * Look for and return the message corresponds to the messageID passed.
     * Returns messageID when the corresponding message is not found
-    * 
-    * @return: string     
+    *
+    * @return: string
     * @access: public
     * @author: Naoki Shima <naoki@avantexchange.com>
     */
@@ -179,7 +139,7 @@ class I18N_Messages_Common
     // {{ _()
 
     /**
-    * Alias for get(). Function name might not be appropriate because it conflicts PEAR coding standard 
+    * Alias for get(). Function name might not be appropriate because it conflicts PEAR coding standard
     * that this is meant to be public function
     *
     * @param : string        messageID
@@ -197,7 +157,7 @@ class I18N_Messages_Common
 
     /**
     * Set message ID to corresponding string
-    * 
+    *
     * @return: boolean
     * @access: public
     * @author: Naoki Shima <naoki@avantexchange.com>
@@ -219,7 +179,7 @@ class I18N_Messages_Common
     // }}
     // {{ setCharset()
 
-    /** 
+    /**
     * Set charset of message
     *
     * @param : string        Charset

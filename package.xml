@@ -35,7 +35,7 @@ Localizing Numbers, DateTime and currency is also implemented.
         <version>0.8.6</version>
         <license>PHP</license>
         <state>beta</state>
-        <date>2002-??-??</date>
+        <date>2002-08-07</date>
         <notes>
 * added singleton() method to DateTime, Number and Currency
 * added russian support by Antony Dovgal
@@ -43,6 +43,8 @@ Localizing Numbers, DateTime and currency is also implemented.
 * added portugese by Bruno Pedro
 * hungarian by Kovács Gergely
 * nl+nl_NL Jeroen Houben
+* fixed July misspelling
++ da_DK by Tommy Ipsen
         </notes>
 
         <filelist>
@@ -64,20 +66,29 @@ Localizing Numbers, DateTime and currency is also implemented.
                 </dir>
 
                 <dir name="Common">
+                    <file role="php" name="af.php" />
+                    <file role="php" name="da_DK.php" />
                     <file role="php" name="de.php" />
                     <file role="php" name="de_AT.php" />
                     <file role="php" name="de_DE.php" />
                     <file role="php" name="en.php" />
-                    <file role="php" name="en_US.php" />
+                    <file role="php" name="en_GB.php" />
                     <file role="php" name="en_UK.php" />
+                    <file role="php" name="en_US.php" />
+                    <file role="php" name="en_ZA.php" />
                     <file role="php" name="es.php" />
                     <file role="php" name="es_ES.php" />
                     <file role="php" name="fr.php" />
                     <file role="php" name="fr_FR.php" />
-                    <file role="php" name="pl.php" />
+                    <file role="php" name="hu.php" />
                     <file role="php" name="it.php" />
                     <file role="php" name="it_IT.php" />
+                    <file role="php" name="nl.php" />
+                    <file role="php" name="nl_NL.php" />
+                    <file role="php" name="pl.php" />
+                    <file role="php" name="pt.php" />
                     <file role="php" name="ru.php" />
+                    <file role="php" name="sl.php" />
                 </dir>
 
                 <dir name="docs" role="doc">

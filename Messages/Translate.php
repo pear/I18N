@@ -34,8 +34,9 @@ class I18N_Messages_Translate extends Tree_OptionsDB
 {
 
     var $options = array(   'tablePrefix' =>    'translate_',   // the DB-table name prefix, at the end we add the lang-string passed to the method
-                            'sourceLanguage'=>  'en'            // the source language, the language used to retrieve the strings to translate from
+                            'sourceLanguage'=>  'en',           // the source language, the language used to retrieve the strings to translate from
                                                                 // its also the table which is used to retreive the source string
+                            'translatorUrl' =>  ''              // the url to a translator tool, only used if given
                          );
 
     /**
@@ -54,14 +55,26 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     *   @var    array   $possibleMarkUpDelimiters
     */
     var $possibleMarkUpDelimiters = array(
-                                    '>[^<]*'                        =>  '[^>]*<', // this mostly applies, that a text is inbetween '>' and '<'
+                                    // cant use this
+                                    // '>[^<]*'                        =>  '[^>]*<', // this mostly applies, that a text is inbetween '>' and '<'
+                                    // because it would translate 'class="..."' to off we have 'as' to be translated :-(
+                                    // but this also means we have to handle stuff like &nbsp; of others specials chars, that dont start
+                                    // and end with a < or > somehow ... i dont know how yet :-(
+
+                                    '>\s*'                        =>  '\s*<', // this mostly applies, that a text is inbetween '>' and '<'
                                     '<\s*input .*value=["\']?\s*'   =>  '\s*["\']?.*>'  // this is for input button's values
                                 );
 
     /**
-    *   @var    $translated this contains the content from the DB, to prevent from multiple DB accesses
+    *   @var    array   this contains the content from the DB, to prevent from multiple DB accesses
     */
-    var $translated = array('destLanguage'=>'','strings'=>array());
+    var $_translated = array('destLanguage'=>'','strings'=>array());
+
+    /**
+    *   @var    array   this array contains the translated strings but with the difference to $_translated
+    *                   that the source strings is the index, so a lookup if a translation exists is much faster
+    */
+    var $_sourceStringIndexed = array();
 
     /**
     *
@@ -106,6 +119,18 @@ class I18N_Messages_Translate extends Tree_OptionsDB
         if( $lang == $this->getOption('sourceLanguage') )   // we dont need to translate a string from the source language to the source language
             return $string;
 
+        if( sizeof($this->_translated['strings'])>0 &&      // this checks if the DB content had been read already
+            $this->_translated['destLanguage'] == $lang )   // for this language
+        {
+            if( sizeof($this->_sourceStringIndexed) == 0 )
+            {
+                foreach( $this->_translated['strings'] as $aSet)
+                    $this->_sourceStringIndexed[$aSet['string']] = $aSet['translated'];
+            }
+            if( isset($this->_sourceStringIndexed[$string]) )
+                return $this->_sourceStringIndexed[$string];
+            return $string;
+        }
 # FIXXME may be it would be better just reading the entire DB-content once
 # and using this array then ??? this uses up a lot of RAM and that for every user ... so i guess not OR?
 # or use PEAR::Cache
@@ -117,7 +142,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
         if( DB::isError($res) )
         {
 #            return $this->raiseError('...');
-            return false;
+            return $string; // return the actual string on failure
         }
 
         if( !$res )                                 // if no translation was found return the source string
@@ -163,9 +188,20 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     */
     function getAll( $lang )
     {
-        $query = sprintf(   'SELECT d.string as translated,d.*,s.* as translated '. // d.string shall be named 'translated'
-                                                                                    // but we still need all the rest from the destination language table
-                                                                                    // and s.* overwrites d.string since we dont need it we have it in 'translated'
+        if( sizeof($this->_translated['strings'])==0 ||      // this checks if the DB content had been read already
+            $this->_translated['destLanguage'] != $lang )    // for this language
+        {
+#print "read again<br>";
+            $this->_translated['destLanguage'] = $lang;
+        }
+        else
+        {
+            return $this->_translated['strings'];
+        }
+
+        $query = sprintf(   'SELECT d.string as translated,d.*,s.* '.   // d.string shall be named 'translated'
+                                                                        // but we still need all the rest from the destination language table
+                                                                        // and s.* overwrites d.string but we dont need it we have it in 'translated'
                             'FROM %s%s s,%s%s d WHERE s.id=d.id '.
                             'ORDER BY LENGTH(s.string) DESC',   // sort the results by the length of the strings, so we translate
                                                                 // sentences first and single words at last
@@ -178,8 +214,10 @@ class I18N_Messages_Translate extends Tree_OptionsDB
             echo sprintf('ERROR - Translate::getAll<br>QUERY:%s<br>%s<br><br>',$query,$res->message);
             return false;
         }
+        $this->_translated['destLanguage'] = $lang;
+        $this->_translated['strings'] = $res;
 
-        return $res;
+        return $this->_translated['strings'];
     }
 
     /**
@@ -198,15 +236,17 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     function translateMarkUpString( $input , $lang )
     {
         if( $lang == $this->getOption('sourceLanguage') )   // we dont need to translate a string from the source language to the source language
-            return $input;
-
-        if( sizeof($this->translated['strings'])==0 ||      // this checks if the DB content had been read already
-            $this->translated['destLanguage'] != $lang )    // for this language
         {
-#print "read again<br>";
-            $this->translated['destLanguage'] = $lang;
-            $this->translated['strings'] = $this->getAll( $lang );          // get all the possible strings from the DB
+            $url=$this->getOption('translatorUrl');
+            if( $url )
+            {
+                $this->getAll( $lang );
+                return $this->addTranslatorLinks( $input , $url );
+            }
+            return $input;
         }
+
+        $this->getAll( $lang );          // get all the possible strings from the DB
 
 # for the translation API, we need to have the long sentences at first, since translating a single word
 # might screw up the entire content, like translating 'i move to germany' and starting to tranlate the word 'move'
@@ -219,8 +259,8 @@ class I18N_Messages_Translate extends Tree_OptionsDB
 # and put them back in the translated string
 # by filling $x in the right place and updating $lastSubpattern
 # then it will be really cool and the text to translate will be recognized with any kind of space inbetween
-        if(is_array($this->translated['strings']) && sizeof($this->translated['strings']))
-        foreach( $this->translated['strings'] as $aString )             // search for each single string and try to translate it
+        if(is_array($this->_translated['strings']) && sizeof($this->_translated['strings']))
+        foreach( $this->_translated['strings'] as $aString )             // search for each single string and try to translate it
         {
             $lastSubpattern = '$2';
             // we use 2 strings that we search for, one is the real text as from the db
@@ -258,23 +298,84 @@ class I18N_Messages_Translate extends Tree_OptionsDB
 
             foreach( $this->possibleMarkUpDelimiters as $begin=>$end )  // go thru all the delimiters and try to translate the strings
             {
+# FIXXME there might be a major problem:
+#   <td
+#       {if($currentPageIndex==$key)}
+#           class="naviItemSelected"    this line will also be tried to translated, since the line before and the one after
+#                                       will start/end with php tags, which also start/end with a < or > which are possible delimtier :-(
+#       {else}
+#           class="naviItem"
+#   nowrap>
+#
+#
+                // add possible spaces and html spaces before and after
+                // by putting the spaces with the delimiters they will get added again before and after as they were before :-)
+                $begin = '[\\s|&nbsp;]*'.$begin;
+                $end = '[\\s|&nbsp;]*'.$end;
+
                 // replace all spaces in the source string by \s* so that there can be spaces
                 // as many as one wants and even newlines
-                $sourceString = preg_replace('/\s+/','\\s*',$sourceString);
-                $htmlSourceString = preg_replace('/\s+/s','\\s*',$htmlSourceString);
+                $sourceString = preg_replace('/\s+/','[\\s|&nbsp;]*',$sourceString);
+                $htmlSourceString = preg_replace('/\s+/s','[\\s|&nbsp;]*',$htmlSourceString);
 
+                $_hashCode = md5($input);
                 $input = preg_replace(  '/('.$begin.')'.$sourceString.'('.$end.')/i' ,
                                         '$1'.$translated."$lastSubpattern" ,
                                         $input );
-                // try also to translate the string with all non-HTML-characters translated using htmlentities
-                // may be someone was creating proper html :-)
-                $input = preg_replace(  '/('.$begin.')'.$htmlSourceString.'('.$end.')/is' ,
-                                        '$1'.$translated."$lastSubpattern" ,
-                                        $input );
+
+                // if the regExp above didnt have no effect try this one with all html characters translated
+                // if we wouldnt check this i had the effect that something was translated twice ... dont know exactly why but it did :-)
+                if( $_hashCode == md5($input) )
+                {
+                    // try also to translate the string with all non-HTML-characters translated using htmlentities
+                    // may be someone was creating proper html :-)
+                    $input = preg_replace(  '/('.$begin.')'.$htmlSourceString.'('.$end.')/i' ,
+                                            '$1'.$translated."$lastSubpattern" ,
+                                            $input );
+                }
+
             }
         }
         return $input;
     }
+
+    /**
+    *
+    *
+    *   @access     public
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @version    02/04/14
+    *   @param      string  the url to a translation tool
+    *   @return
+    */
+/*    function addTranslatorLinks( $input , $url )
+    {
+        $linkBegin = '<a href="#" onClick="javascript:window.open(\''.$url.'?string=';
+        $linkEnd =  '\',\'translate\',\'left=100,top=100,width=400,height=200\')" '.
+                    'style="background-color:red; color:white; font-style:Courier; font-size:12px;">&nbsp;T&nbsp;</a>';
+
+        foreach( $this->_translated['strings'] as $aString )             // search for each single string and try to translate it
+        {
+            $englishString = preg_quote($aString['string']);
+
+            if( $aString['numSubPattern'] )         // if the string is a regExp, we need to update $lastSubpattern
+            {
+                $englishString = $aString['string'];// we should not preg_quote the string
+                $lastSubpattern = '$'.( 2 + $aString['numSubPattern'] );    // set $lastSubpattern properly
+            }
+
+            $link = $linkBegin.urlencode($englishString).$linkEnd;
+            $input = preg_replace( '/(\s*>\s*)('.$englishString.')(\s*<\/a>)/isU' , '$1$2$3'.$link , $input );
+            $input = preg_replace( '/(<option.*>\s*)('.$englishString.')(.*<\/select>)/isU' , '$1$2$3'.$link , $input );
+            $input = preg_replace(  '/(<input[^>]*type=.?(button|submit|reset)[^>]*value=.?\s*)'.
+                                    '('.$englishString.')([^>]*>)/isU' , '$1$3$4'.$link , $input );
+        }
+        return $input;
+    }
+
+#        '>\s*'                          =>  '\s*<', // this mostly applies, that a text is inbetween '>' and '<'
+#        '<\s*input .*value=["\']?\s*'   =>  '\s*["\']?.*>'  // this is for input button's values
+*/
 
 } // end of class
 ?>

@@ -87,6 +87,9 @@ class I18N_Messages_Common
     {
         // we make it very simple for now,
         // this should be done using a db one day, either one that "learns" or one which is already a huge dictionary
+// FIXXME may be each word should be a regular expression, to catch different
+// forms (i.e.: like, likes), this is more relevant for languages other than english
+// but regexps may consume much more time when parsing all the languages ...
         $languages = array( 'en' => array(  'the','it','this',
                                             'he','she','him','her','his',
                                             'who','why','that','what',
@@ -95,12 +98,12 @@ class I18N_Messages_Common
                             'de' => array(  'der','die','das','des','dem',
                                             'er','sie','es','ich','du','wir','ihr',
                                             'warum','wieso','wie','wo','weshalb','was',
-                                            'habe','haben','machen','tun'),
+                                            'habe','haben','machen','tun','ist'),
                             'es' => array(  'lo','la','las','los','esto','es',
                                             'el','yo','tu','ella','su','mi','ti',
                                             'por','que','cuanto','cuando','donde',
                                             'para','desde','hasta','luego','por','y','o','con',
-                                            'hacer','hace','tener'),
+                                            'hacer','hace','tener','esta','estar'),
                             'fr' => array(  'le','la','les',
                                             'je','tu','il','elle','nous','vous','ils','elles','ma','mon','ta','ton','notre','votre',
                                             'por','quoi','quand','qui','ou','combien',
@@ -112,10 +115,13 @@ class I18N_Messages_Common
                                             'questo','quello',
                                             'io','tu','lui','lei','ella','egli','noi','voi','loro','essi',
                                             'mio','tuo','suo','nostro','vostro',
-                                            'chi','perché','quanto','quando','dove',
+                                            'chi','perché','perche','quanto','quando','dove',
                                             'di','a','da','in','con','su','per','tra','fra',
                                             'essere','fare','avere')
                           );
+
+        // replace all non word-characters by a space, i hope that is ok for all languages
+        $string = preg_replace( '/[\W\s]/' , ' ' ,$string);
 
         $splitString = explode(' ',$string);        // get each single word in a field
         foreach( $splitString as $key=>$aString )   // remove spaces around the word and make it lower case

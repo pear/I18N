@@ -33,9 +33,12 @@
     echo '<input type="submit"><br>';
     if( $_REQUEST['langString'] )
     {
-        echo 'I18N_Messages_Common::determineLanguage says it is: <b>';
+        echo '<i>I18N_Messages_Common::determineLanguage</i> &nbsp; says it is: <b>';
         echo I18N_Messages_Common::determineLanguage($_REQUEST['langString']).'</b>';
     }
+    print   '<br><br>NOTE: Since this method only looks for the most common words of a language, '.
+            'to determine it, it is suggeseted that at least a sentence is provided, to make this method work. '.
+            'The longer the string you provide the better!';
     echo "</form>";
 
 

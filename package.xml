@@ -12,7 +12,7 @@ Internationalization package
 This package supports you to localize your applications.
 Multiple ways of supporting translation are implemented
 and methods to determine the current users (browser-)language.
-Localizing Numbers, DateTime and currency is also possible.
+Localizing Numbers, DateTime and currency is also implemented.
     </description>
 
     <maintainers>
@@ -32,12 +32,15 @@ Localizing Numbers, DateTime and currency is also possible.
     </maintainers>
 
     <release>
-        <version>0.8.2</version>
+        <version>0.8.3</version>
         <license>PHP</license>
         <state>beta</state>
-        <date>2002-11-22</date>
+        <date>2002-12-01</date>
         <notes>
             - added DateTime, Number, Currency
+            - added a lot of functionality to the DateTime class
+            - added polish as first new language
+            - enhanced the markup-translate a bit
         </notes>
 
         <filelist>
@@ -69,6 +72,7 @@ Localizing Numbers, DateTime and currency is also possible.
                     <file role="php" name="es_ES.php" />
                     <file role="php" name="fr.php" />
                     <file role="php" name="fr_FR.php" />
+                    <file role="php" name="pl.php" />
                 </dir>
 
                 <dir name="docs" role="doc">

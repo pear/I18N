@@ -22,7 +22,8 @@
     // the actual translate stuff
     //
     require_once( 'I18N/Messages/Translate.php' );
-    $translate = new I18N_Messages_Translate( 'mysql://root@localhost/test' );
+    $db = DB::connect('mysql://root@localhost/test');
+    $translate = new I18N_Messages_Translate( $db );
     print $translate->translateMarkUpString( $tplString , $_REQUEST['lang']?$_REQUEST['lang']:'en' );
 
 ?>

@@ -294,7 +294,296 @@ class I18N_DateTime extends I18N_Format
     function getTimeFormat()
     {
         return $this->_currentTimeFormat;
+    }  
+
+    //
+    //  all the following are simply convienence methods
+    //  which make it shorter to call the format methods with the default
+    //  formats,
+    //  FIXXME we should use overloading here, well with ZE2 we will!!!!
+    //
+    //  i am not really happy with the following, since it only bloats the code,
+    //  but the methods make sense :-)
+    //
+
+    /**
+    *   convinience method, same as format( $timestamp , I18N_DATETIME_SHORT )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_SHORT
+    *
+    *   @see        format()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatShort( $timestamp )
+    {
+        return $this->format( $timestamp , I18N_DATETIME_SHORT );
     }
 
+    /**
+    *   convinience method, same as format( $timestamp , I18N_DATETIME_DEFAULT )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_DEFAULT
+    *
+    *   @see        format()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatDefault( $timestamp )
+    {
+        return $this->format( $timestamp , I18N_DATETIME_DEFAULT );
+    }
+
+    /**
+    *   convinience method, same as format( $timestamp , I18N_DATETIME_MEDIUM )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_MEDIUM
+    *
+    *   @see        format()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatMedium( $timestamp )
+    {
+        return $this->format( $timestamp , I18N_DATETIME_MEDIUM );
+    }
+
+    /**
+    *   convinience method, same as format( $timestamp , I18N_DATETIME_LONG )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_LONG
+    *
+    *   @see        format()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatLong( $timestamp )
+    {
+        return $this->format( $timestamp , I18N_DATETIME_LONG );
+    }
+
+    /**
+    *   convinience method, same as format( $timestamp , I18N_DATETIME_FULL )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_FULL
+    *
+    *   @see        format()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatFull( $timestamp )
+    {
+        return $this->format( $timestamp , I18N_DATETIME_FULL );
+    }
+
+
+
+
+    /**
+    *   convinience method, same as formatDate( $timestamp , I18N_DATETIME_SHORT )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_SHORT
+    *
+    *   @see        formatDate()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatDateShort( $timestamp )
+    {
+        return $this->formatDate( $timestamp , I18N_DATETIME_SHORT );
+    }
+
+    /**
+    *   convinience method, same as formatDate( $timestamp , I18N_DATETIME_DEFAULT )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_DEFAULT
+    *
+    *   @see        formatDate()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatDateDefault( $timestamp )
+    {
+        return $this->formatDate( $timestamp , I18N_DATETIME_DEFAULT );
+    }
+
+    /**
+    *   convinience method, same as formatDate( $timestamp , I18N_DATETIME_MEDIUM )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_MEDIUM
+    *
+    *   @see        formatDate()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatDateMedium( $timestamp )
+    {
+        return $this->formatDate( $timestamp , I18N_DATETIME_MEDIUM );
+    }
+
+    /**
+    *   convinience method, same as formatDate( $timestamp , I18N_DATETIME_LONG )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_LONG
+    *
+    *   @see        formatDate()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatDateLong( $timestamp )
+    {
+        return $this->formatDate( $timestamp , I18N_DATETIME_LONG );
+    }
+
+    /**
+    *   convinience method, same as formatDate( $timestamp , I18N_DATETIME_FULL )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_FULL
+    *
+    *   @see        formatDate()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatDateFull( $timestamp )
+    {
+        return $this->formatDate( $timestamp , I18N_DATETIME_FULL );
+    }
+
+
+
+
+
+    /**
+    *   convinience method, same as formatTime( $timestamp , I18N_DATETIME_SHORT )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_SHORT
+    *
+    *   @see        formatTime()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatTimeShort( $timestamp )
+    {
+        return $this->formatTime( $timestamp , I18N_DATETIME_SHORT );
+    }
+
+    /**
+    *   convinience method, same as formatTime( $timestamp , I18N_DATETIME_DEFAULT )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_DEFAULT
+    *
+    *   @see        formatTime()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatTimeDefault( $timestamp )
+    {
+        return $this->formatTime( $timestamp , I18N_DATETIME_DEFAULT );
+    }
+
+    /**
+    *   convinience method, same as formatTime( $timestamp , I18N_DATETIME_MEDIUM )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_MEDIUM
+    *
+    *   @see        formatTime()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatTimeMedium( $timestamp )
+    {
+        return $this->formatTime( $timestamp , I18N_DATETIME_MEDIUM );
+    }
+
+    /**
+    *   convinience method, same as formatTime( $timestamp , I18N_DATETIME_LONG )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_LONG
+    *
+    *   @see        formatTime()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatTimeLong( $timestamp )
+    {
+        return $this->formatTime( $timestamp , I18N_DATETIME_LONG );
+    }
+
+    /**
+    *   convinience method, same as formatTime( $timestamp , I18N_DATETIME_FULL )
+    *
+    *   this method exists, to have a shorter call to the method
+    *   with a default format I18N_DATETIME_FULL
+    *
+    *   @see        formatTime()
+    *   @version    02/11/28
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @param      int     a timestamp
+    *   @return     string  the formatted timestamp
+    *   @access     public
+    */
+    function formatTimeFull( $timestamp )
+    {
+        return $this->formatTime( $timestamp , I18N_DATETIME_FULL );
+    }
+
+
 }
+
 ?>

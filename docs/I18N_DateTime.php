@@ -7,7 +7,43 @@
 
     require_once 'I18N/DateTime.php';
 
-    $dateTime = new I18N_DateTime( 'es_ES' );
+    $lang = 'en_US';
+                                     
+    echo 'require_once \'I18N/DateTime.php\';<br>';
+    echo '$dateTime = new I18N_DateTime( \''.$lang.'\' );<br><br>';
+    $dateTime = new I18N_DateTime( $lang );
+
+
+    // 
+    //  very simple examples, to get the date and/or time for now
+    //                                                           
+    myPrint('<h1>simple Examples</h1>');
+
+    //
+    // get the time now in format DEFAULT
+    //
+    myPrint( '$dateTime->format() . . . '. $dateTime->format() );
+    myPrint( '$dateTime->formatShort() . . . '. $dateTime->formatShort() );
+    myPrint( '$dateTime->formatMedium() . . . '. $dateTime->formatMedium() );
+    myPrint( '$dateTime->formatLong() . . . '. $dateTime->formatLong() );
+    myPrint( '$dateTime->formatFull() . . . '. $dateTime->formatFull() );
+
+
+    echo '<br><br>';
+    myPrint( '$dateTime->formatTime() . . . '. $dateTime->formatTime() );
+    myPrint( '$dateTime->formatTimeShort() . . . '. $dateTime->formatTimeShort() );
+    myPrint( '$dateTime->formatTimeMedium() . . . '. $dateTime->formatTimeMedium() );
+    myPrint( '$dateTime->formatTimeLong() . . . '. $dateTime->formatTimeLong() );
+    myPrint( '$dateTime->formatTimeFull() . . . '. $dateTime->formatTimeFull() );
+
+
+    echo '<br><br>';
+    myPrint( '$dateTime->formatDate() . . . '. $dateTime->formatDate() );
+    myPrint( '$dateTime->formatDateShort() . . . '. $dateTime->formatDateShort() );
+    myPrint( '$dateTime->formatDateMedium() . . . '. $dateTime->formatDateMedium() );
+    myPrint( '$dateTime->formatDateLong() . . . '. $dateTime->formatDateLong() );
+    myPrint( '$dateTime->formatDateFull() . . . '. $dateTime->formatDateFull() );
+
 
 
     ////////////////////////////////////////////

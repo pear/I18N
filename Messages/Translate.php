@@ -109,10 +109,10 @@ class I18N_Messages_Translate extends Tree_OptionsDB
 # FIXXME may be it would be better just reading the entire DB-content once
 # and using this array then ??? this uses up a lot of RAM and that for every user ... so i guess not OR?
 # or use PEAR::Cache
-        $query = sprintf(   "SELECT d.string FROM %s%s s,%s%s d WHERE s.string='%s' AND s.id=d.id",
+        $query = sprintf(   "SELECT d.string FROM %s%s s,%s%s d WHERE s.string=%s AND s.id=d.id",
                             $this->getOption('tablePrefix'),$this->getOption('sourceLanguage'), // build the source language name
                             $this->getOption('tablePrefix'),$lang,
-                            $string );    // build the destination language name
+                            $this->dbh->quote($string) );    // build the destination language name
         $res = $this->dbh->getOne( $query );
         if( DB::isError($res) )
         {

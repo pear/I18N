@@ -83,7 +83,12 @@ class I18N_Negotiator{
      */
     function I18N_Negotiator($defaultLanguage = 'en', $defaultCharset = 'ISO-8859-1', $defaultCountry = '')
     {
-        global $HTTP_ACCEPT_LANGUAGE,$HTTP_ACCEPT_CHARSET;
+        if($_SERVER) {
+            $HTTP_ACCEPT_LANGUAGE = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+            $HTTP_ACCEPT_CHARSET = $_SERVER['HTTP_ACCEPT_CHARSET'];
+        } else {
+            global $HTTP_ACCEPT_LANGUAGE,$HTTP_ACCEPT_CHARSET;
+        }
         $this->_defaultCountry = $defaultCountry;
         $this->_defaultLanguage = $defaultLanguage;
         $this->_defaultCharset = $defaultCharest;

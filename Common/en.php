@@ -19,7 +19,34 @@
 
 class I18N_Common_en
 {
-                        
+/*
+    since this file is mostly the starting point for translations, dont forget to translate the
+    days and month names, which are not defined here for english, since they are the default values
+    which are in the DateTime-class itself
+
+
+    var $days = array( 'Sunday' , 'Monday' , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' );
+
+    var $daysAbbreviated = array( 'Sun','Mon','Tue','Wed','Thu','Fri','Sat');
+
+    var $monthsAbbreviated = array( 'Jan' , 'Feb' , 'Mar' , 'Apr' , 'May' , 'Jun' ,'Jul' , 'Aug' , 'Sep' , 'Oct' , 'Nov' , 'Dec' );
+
+    var $months = array(
+                            'January',
+                            'February',
+                            'March',
+                            'April',
+                            'May',
+                            'June',
+                            'Juli',
+                            'August',
+                            'September',
+                            'October',
+                            'November',
+                            'December'
+                         );
+
+*/
     var $dateFormats = array(
                             I18N_DATETIME_SHORT     =>  'd/m/y',
                             I18N_DATETIME_DEFAULT   =>  'd-M-Y',

@@ -355,13 +355,13 @@ class I18N_DateTime extends I18N_Format
     function getMonthNames($abbreviated=false)
     {                                          
         $propName = 'months'.($abbreviated ? 'Abbreviated' : '' );
-        return $this->_localeObj->$propName ? $this->_localeObj->$propName : $this->$propName;
+        return isset($this->_localeObj->$propName) ? $this->_localeObj->$propName : $this->$propName;
     }
 
     function getDayNames($abbreviated=false)
     {
         $propName = 'days'.($abbreviated ? 'Abbreviated' : '' );
-        return $this->_localeObj->$propName ? $this->_localeObj->$propName : $this->$propName;
+        return isset($this->_localeObj->$propName) ? $this->_localeObj->$propName : $this->$propName;
     }
 
     //

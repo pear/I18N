@@ -44,7 +44,7 @@ class I18N_DateTime extends I18N_Format
        
     var $days = array( 'Sunday' , 'Monday' , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' );
 
-    var $daysAbbreviated = array( 'So','Mo','Di','Mi','Do','Fr','Sa');
+    var $daysAbbreviated = array( 'Sun','Mon','Tue','Wed','Thu','Fri','Sat');
 
     var $monthsAbbreviated = array( 'Jan' , 'Feb' , 'Mar' , 'Apr' , 'May' , 'Jun' ,'Jul' , 'Aug' , 'Sep' , 'Oct' , 'Nov' , 'Dec' );
 
@@ -295,6 +295,38 @@ class I18N_DateTime extends I18N_Format
     {
         return $this->_currentTimeFormat;
     }  
+                          
+    /**
+    *   get either the current or the given month name
+    *
+    */
+    function getMonthName( $which=null , $abbreviated=false )
+    {
+        if( $which == null )
+            $which = $date('n')-1;
+
+        $monthNames = $this->getMonthNames( $abbreviated );
+        return $monthNames[$which];
+    }
+
+    /**
+    *   get all month names for the current locale
+    *
+    *   get all month names for the current locale,
+    *   fallback to english if not defined
+    *
+    */
+    function getMonthNames( $abbreviated=false )
+    {                                          
+        $propName = 'months'.($abbreviated ? 'Abbreviated' : '' );
+        return $this->_localeObj->$propName ? $this->_localeObj->$propName : $this->$propName;
+    }
+
+    function getDayNames( $abbreviated=false )
+    {
+        $propName = 'days'.($abbreviated ? 'Abbreviated' : '' );
+        return $this->_localeObj->$propName ? $this->_localeObj->$propName : $this->$propName;
+    }
 
     //
     //  all the following are simply convienence methods

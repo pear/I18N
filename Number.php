@@ -67,13 +67,13 @@ class I18N_Number extends I18N_Format
             $format = $this->getFormat();
         }
 
-        // normally this is used
-        $numberFormat = $this->_localeObj->numberFormat[$format];
         // handle custom formats too
         if ($format >= I18N_CUSTOM_FORMATS_OFFSET) {
             if (isset($this->_customFormats[$format])) {
                 $numberFormat = $this->_customFormats[$format];
             }
+        } else {
+            $numberFormat = $this->_localeObj->numberFormat[$format];        
         }
         return call_user_func_array( 'number_format' , array_merge( array($number),$numberFormat) );
     }

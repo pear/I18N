@@ -63,8 +63,9 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     *   @author
     *   @version
     */
-    function __construct( )
+    function __construct( $dsn , $options )
     {
+        parent::Tree_OptionsDB( $dsn , $options );
 # FIXXME pass a resource to the constructor which can be used to translate the
 # string, it should be possible to use XML, DB, or whatever
 # currently, as you can see there is only a DB interface hardcoded in here
@@ -78,9 +79,9 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     *   @author
     *   @version
     */
-    function I18N_Messages_Translate()
+    function I18N_Messages_Translate( $dsn , $options=array() )
     {
-        return __construct();
+        return $this->__construct( $dsn , $options );
     }
 
     /**

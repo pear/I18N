@@ -97,7 +97,7 @@ class I18N_Messages_Common
                                             'habe','haben','machen','tun'),
                             'es' => array(  'lo','la','las','los','esto','es',
                                             'el','yo','tu','ella','su','mi','ti',
-                                            'por','que','cuanto','quando','donde',
+                                            'por','que','cuanto','cuando','donde',
                                             'para','desde','hasta','luego','por','y','o','con',
                                             'hacer','hace','tener'),
                             'fr' => array(  'le','la','les',

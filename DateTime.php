@@ -41,7 +41,7 @@ class I18N_DateTime extends I18N_Format
 
     const CUSTOM_FORMATS_OFFSET = 100;
 */
-       
+
     var $days = array( 'Sunday' , 'Monday' , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' );
 
     var $daysAbbreviated = array( 'Sun','Mon','Tue','Wed','Thu','Fri','Sat');
@@ -226,12 +226,39 @@ class I18N_DateTime extends I18N_Format
 // dont put the abbreviated's in this array ....
         $translateArrays = array( 'days' , 'months' , 'daysAbbreviated' , 'monthsAbbreviated' );
 
-// FIXXME optimize the localized arrays, so we only need to put the words in there which really need translation, such
-// as November is the same in german and english, but still it is translated here
-        foreach( $translateArrays as $aArray ){                                   
-            if( isset($this->_localeObj->{$aArray}) )
-                $string = str_replace( $this->{$aArray} , $this->_localeObj->{$aArray} , $string );
+        // this seems a bit difficult i guess,
+        // but i had problems with the way i did it before, which way simply str_replace the
+        // src-lang array and the dest-lang array, this caused stuff like
+        // translating 'Monday' => 'Montag' and then 'Montag' => 'Motag', since 'Mon'
+        // is the abbreviated weekday for Monday. 
+        // if i would turn it around and translate the abbreviated words first it would screw up worse
+        
+        // so waht i do now is searching for the position of words which can be translated and
+        // remember the position (using strpos) and dont translate a word at this position a second
+        // time. this at least prevents the case described above. i hope it covers everything else too
+        // for me it works quite well now
+        $translateSrc =  array();
+        $translateDest = array();
+        $prevPositions = array();
+        foreach( $translateArrays as $aArray )
+        {
+            if( isset($this->_localeObj->{$aArray}))
+            {
+                foreach( $this->{$aArray} as $index=>$aWord )
+                {
+                    if( ($pos=strpos( $string , $aWord ))!==false &&
+                        !in_array( $pos , $prevPositions ) )
+                    {
+                        $translateSrc[] = $aWord;
+                        $translateDest[] = $this->_localeObj->{$aArray}[$index];
+                        $prevPositions[] = $pos;
+                    }
+                }
+            }
         }
+                      
+        // here we actually replace the strings (translate:-)) that we found, when checking for their position
+        $string = str_replace( $translateSrc , $translateDest , $string );
 
         return $string;
     }

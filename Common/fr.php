@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------+
 // | PHP version 4.0                                                      |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997, 1998, 1999, 2000, 2001, 2002, 2003 The PHP Group       |
+// | Copyright (c) 1997, 1998, 1999, 2000, 2001, 2002, 2003 The PHP Group |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 2.0 of the PHP license,       |
 // | that is bundled with this package in the file LICENSE, and is        |
@@ -13,34 +13,33 @@
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
-// |                                                                      |
-// +----------------------------------------------------------------------+//
+// |          Aurélien Tellier <aurelien_tellier@yahoo.fr>                |
+// +----------------------------------------------------------------------+
 // $Id$
 
 class I18N_Common_fr
 {
 
-/* to be done!!!!
-    var $days = array( 'domingo' , 'lunes' , 'martes' , 'miércoles' , 'jueves' , 'viernes' , 'sábado' );
+    var $days = array( 'dimanche' , 'lundi' , 'mardi' , 'mercredi' , 'jeudi' , 'vendredi' , 'samedi' );
 
-    var $daysAbbreviated = array( 'do' ,'lu','ma','mi','ju','vi','sa');
+    var $daysAbbreviated = array( 'di' ,'lu','ma','mer','je','ve','sa');
+    
+    var $monthsAbbreviated = array( 'jan.' , 'fev.' , 'mar.' , 'avr.' , 'mai' , 'jun.' ,'juil.' , 'aout' , 'sep.' , 'oct.' , 'nov.' , 'dec.' );
 
-    var $monthsAbbreviated = array( 'ene' , 'feb' , 'mar' , 'abr' , 'may' , 'jun' ,'jul' , 'ago' , 'sep' , 'oct' , 'nov' , 'dic' );
-
-    var $months = array(
-                            'enero',
-                            'febrero',
-                            'marzo',
-                            'abril',
-                            'mayo',
-                            'junio',
-                            'julio',
-                            'agosto',
-                            'septiembre',
-                            'octubre',
-                            'noviembre',
-                            'diciembre'
-                         );
+    var $months = array(    
+                            'janvier',
+                            'février',
+                            'mars',
+                            'avril',
+                            'mai',
+                            'juin',
+                            'juillet',
+                            'août',
+                            'septembre',
+                            'octobre',
+                            'novembre',
+                            'decembre'
+                        );
 
     var $dateFormats = array(
                             I18N_DATETIME_SHORT     =>  'd/m/y',
@@ -56,7 +55,6 @@ class I18N_Common_fr
                             I18N_DATETIME_LONG      =>  'H:i:s T O',
                             I18N_DATETIME_FULL      =>  'H:i T O'
                         );
-*/
 
     /**
     *   the NUMBER stuff

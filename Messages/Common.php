@@ -69,7 +69,7 @@ class I18N_Messages_Common
     */
     function I18N_Messages_Common( )
     {
-        return __construct();
+        return $this->__construct();
     }
 
     /**
@@ -95,7 +95,7 @@ class I18N_Messages_Common
                                             'er','sie','es','ich','du','wir','ihr',
                                             'warum','wieso','wie','wo','weshalb','was',
                                             'habe','haben','machen','tun'),
-                            'es' => array(  'lo','la','las','los',
+                            'es' => array(  'lo','la','las','los','esto','es',
                                             'el','yo','tu','ella','su','mi','ti',
                                             'por','que','cuanto','quando','donde',
                                             'para','desde','hasta','luego','por','y','o','con',

@@ -32,7 +32,7 @@ class I18N_Country extends I18N_Common {
      */
     function I18N_Country()
     {
-	// call constructor of parent class
+    // call constructor of parent class
         parent::_constructor();
 
         /**
@@ -300,15 +300,11 @@ class I18N_Country extends I18N_Common {
     }
 
     // }}
-    // {{ destructor
-
-    function _I18N_Country()
-    {
-    }
+    // {{ isValidCode()
 
     function isValidCode($code)
     {
-        return in_array(strtoupper($code),array_keys($this->_codes));
+        return isset($this->_codes[strtoupper($code)]);
     }
 
     // }}
@@ -324,10 +320,7 @@ class I18N_Country extends I18N_Common {
      */
     function getName($code = '')
     {
-        if(($code = strtoupper($code)) && in_array($code,array_keys($this->_codes))) {
-            return $this->_codes[$code];
-        }
-        return FALSE;
+        return $this->isValidCode($code = strtoupper($code)) ? $this->_codes[$code] : false;
     }
 
     // }}

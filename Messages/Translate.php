@@ -18,8 +18,8 @@
 //
 //  $Id$
 
-# we have to move this to some more common place in PEAR
-# this is just a quick hack here :-)
+// we have to move this to some more common place in PEAR
+// this is just a quick hack here :-)
 require_once( 'Tree/OptionsDB.php' );    // this contains all the methods like setOption, getOption, etc.
 
 /**
@@ -86,10 +86,10 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     function __construct( $dsn , $options )
     {
         parent::Tree_OptionsDB( $dsn , $options );
-# FIXXME pass a resource to the constructor which can be used to translate the
-# string, it should be possible to use XML, DB, or whatever
-# currently, as you can see there is only a DB interface hardcoded in here
-# this will be removed soon
+// FIXXME pass a resource to the constructor which can be used to translate the
+// string, it should be possible to use XML, DB, or whatever
+// currently, as you can see there is only a DB interface hardcoded in here
+// this will be removed soon
     }
 
     /**
@@ -131,9 +131,9 @@ class I18N_Messages_Translate extends Tree_OptionsDB
                 return $this->_sourceStringIndexed[$string];
             return $string;
         }
-# FIXXME may be it would be better just reading the entire DB-content once
-# and using this array then ??? this uses up a lot of RAM and that for every user ... so i guess not OR?
-# or use PEAR::Cache
+// FIXXME may be it would be better just reading the entire DB-content once
+// and using this array then ??? this uses up a lot of RAM and that for every user ... so i guess not OR?
+// or use PEAR::Cache
         $query = sprintf(   "SELECT d.string FROM %s%s s,%s%s d WHERE s.string=%s AND s.id=d.id",
                             $this->getOption('tablePrefix'),$this->getOption('sourceLanguage'), // build the source language name
                             $this->getOption('tablePrefix'),$lang,
@@ -141,7 +141,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
         $res = $this->dbh->getOne( $query );
         if( DB::isError($res) )
         {
-#            return $this->raiseError('...');
+//            return $this->raiseError('...');
             return $string; // return the actual string on failure
         }
 
@@ -169,7 +169,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
         {
             $temp = $this->possibleMarkUpDelimiters;    // remember the delimiters
             $this->possibleMarkUpDelimiters = array(''=>'');    // dont use any delimiters
-# may be better using a property like 'useMarkupDelimiters'
+// may be better using a property like 'useMarkupDelimiters'
             $res = $this->translateMarkUpString( $string , $lang ); // translate
             $this->possibleMarkUpDelimiters = $temp;    // set delimiters properly again
         }
@@ -191,7 +191,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
         if( sizeof($this->_translated['strings'])==0 ||      // this checks if the DB content had been read already
             $this->_translated['destLanguage'] != $lang )    // for this language
         {
-#print "read again<br>";
+//print "read again<br>";
             $this->_translated['destLanguage'] = $lang;
         }
         else
@@ -210,7 +210,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
         $res = $this->dbh->getAll( $query );
         if( DB::isError($res) )
         {
-#            return $this->raiseError('...');
+//            return $this->raiseError('...');
             echo sprintf('ERROR - Translate::getAll<br>QUERY:%s<br>%s<br><br>',$query,$res->message);
             return false;
         }
@@ -248,17 +248,17 @@ class I18N_Messages_Translate extends Tree_OptionsDB
 
         $this->getAll( $lang );          // get all the possible strings from the DB
 
-# for the translation API, we need to have the long sentences at first, since translating a single word
-# might screw up the entire content, like translating 'i move to germany' and starting to tranlate the word 'move'
-# makes it impossible to properly translate the entire phrase
-# even though this problem can not really happen, since we check for delimiters around the string that
-# shall be translated see $posDelimiters
+// for the translation API, we need to have the long sentences at first, since translating a single word
+// might screw up the entire content, like translating 'i move to germany' and starting to tranlate the word 'move'
+// makes it impossible to properly translate the entire phrase
+// even though this problem can not really happen, since we check for delimiters around the string that
+// shall be translated see $posDelimiters
 
-# FIXXME replace all spaces by something like this: (\s*|<br>|<br/>|<font.*>|</font>|<i>|</i>|<b>|</b>|&nbsp;)
-# simply all those formatting tags which dont really cancel the phrase that should be translated
-# and put them back in the translated string
-# by filling $x in the right place and updating $lastSubpattern
-# then it will be really cool and the text to translate will be recognized with any kind of space inbetween
+// FIXXME replace all spaces by something like this: (\s*|<br>|<br/>|<font.*>|</font>|<i>|</i>|<b>|</b>|&nbsp;)
+// simply all those formatting tags which dont really cancel the phrase that should be translated
+// and put them back in the translated string
+// by filling $x in the right place and updating $lastSubpattern
+// then it will be really cool and the text to translate will be recognized with any kind of space inbetween
         if(is_array($this->_translated['strings']) && sizeof($this->_translated['strings']))
         foreach( $this->_translated['strings'] as $aString )             // search for each single string and try to translate it
         {
@@ -298,16 +298,16 @@ class I18N_Messages_Translate extends Tree_OptionsDB
 
             foreach( $this->possibleMarkUpDelimiters as $begin=>$end )  // go thru all the delimiters and try to translate the strings
             {
-# FIXXME there might be a major problem:
-#   <td
-#       {if($currentPageIndex==$key)}
-#           class="naviItemSelected"    this line will also be tried to translated, since the line before and the one after
-#                                       will start/end with php tags, which also start/end with a < or > which are possible delimtier :-(
-#       {else}
-#           class="naviItem"
-#   nowrap>
-#
-#
+// FIXXME there might be a major problem:
+//   <td
+//       {if($currentPageIndex==$key)}
+//           class="naviItemSelected"    this line will also be tried to translated, since the line before and the one after
+//                                       will start/end with php tags, which also start/end with a < or > which are possible delimtier :-(
+//       {else}
+//           class="naviItem"
+//   nowrap>
+//
+//
                 // add possible spaces and html spaces before and after
                 // by putting the spaces with the delimiters they will get added again before and after as they were before :-)
                 $begin = '[\\s|&nbsp;]*'.$begin;

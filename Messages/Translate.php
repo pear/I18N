@@ -44,6 +44,13 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     *   this way we prevent from translating each HTML-tag, which definetly wouldnt work :-)
     *   those delimiters might also work on any other markup language, like xml - but not tested
     *
+    *   NOTE: if you have php inside such a tag then you have to use an extra filter
+    *   since <a href="">< ?=$var? ></a> would find the php-tags and see them as delimiters
+    *   which results in < ?=$var? > can not be translated, see sf.net/projects/simpletpl, there
+    *   is a filter in 'SimpleTemplate/Filter/Basic::applyTranslateFunction' which solves this
+    *   it wraps a given function/method around it so that it finally will be:
+    *       <a href="">< ?=translateThis($var)? ></a>
+    *
     *   @var    array   $possibleMarkUpDelimiters
     */
     var $possibleMarkUpDelimiters = array(
@@ -228,6 +235,17 @@ class I18N_Messages_Translate extends Tree_OptionsDB
                 $translated = htmlentities($aString['translated']);
             else
                 $translated = $aString['translated'];
+
+            // in the DB the spaceholders start with $1, but here we need it
+            // to start with $2, that's what the following does
+            preg_match_all ( '/\$(\d)/' , $translated , $res );
+            $res[0] = array_reverse($res[0]);   // reverse the arrays, since we replace $1 by $2 and then $2 by $3 ...
+            $res[1] = array_reverse($res[1]);   // ... if we wouldnt reverse all would be $<lastNumber>
+            foreach( $res[0] as $index=>$aRes )
+            {
+                $aRes = preg_quote($aRes);
+                $translated = preg_replace( '/'.$aRes.'/' , '\$'.($res[1][$index]+1) , $translated );
+            }
 
             foreach( $this->possibleMarkUpDelimiters as $begin=>$end )  // go thru all the delimiters and try to translate the strings
             {

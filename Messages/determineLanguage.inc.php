@@ -51,6 +51,16 @@
                                             'chi','perché','perche','quanto','quando','dove',
                                             'di','a','da','in','con','su','per','tra','fra',
                                             'essere','fare','avere')
+                            // Polish provided by: Piotr Klaban <makler@man.torun.pl>
+                            'pl' => array(  'ten', 'ta', 'to', 'tego', 'mnie', 'nami',
+                                            'ja', 'ty', 'on', 'ona', 'ono', 'oni', 'my', 'wy',
+                                            'dla', 'po', 'przed', 'za', 'miêdzy',
+                                            'ale', 'albo', 'czy', 'kto', 'kiedy', 'kiedy¶', 'co', 'dlaczego',
+                                            '¿e', '¿eby', 'który', 'która', 'które', 'jak', 'jaki', 'jaka', 'jakie',
+                                            'czyj', 'czyja', 'czyje',
+                                            'wczoraj', 'dzisiaj', 'jutro',
+                                            'jest', 'jestem', 'jeste¶', 'jeste¶my', 'jeste¶cie', 's±',
+                                            'ma', 'mia³em', 'mia³', 'by³', 'bêdzie', 'by³em'),
                           );
 
 ?>

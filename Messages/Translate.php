@@ -60,9 +60,21 @@ class I18N_Messages_Translate extends Tree_OptionsDB
                                     // because it would translate 'class="..."' to off we have 'as' to be translated :-(
                                     // but this also means we have to handle stuff like &nbsp; of others specials chars, that dont start
                                     // and end with a < or > somehow ... i dont know how yet :-(
+                                                                               
+                                    // this mostly applies, that a text is inbetween '>' and '<'
+                                    '>\s*'                          =>  '\s*<'          
 
-                                    '>\s*'                        =>  '\s*<', // this mostly applies, that a text is inbetween '>' and '<'
-                                    '<\s*input .*value=["\']?\s*'   =>  '\s*["\']?.*>'  // this is for input button's values
+                                    // same as above, 
+                                    // only that this leaves &nbsp; before and after the text outside html-tags as they are ...
+                                    // 
+                                    // actually we need a more common thing here, which also takes care of other chars which
+                                    // we dont want to bother the translation with
+                                    ,'>[\s*&nbsp;]*'             =>  '[\s*&nbsp;]*<'
+
+
+                                    // this is for input button's values
+                                    ,'<\s*input .*value=["\']?\s*'  =>  '\s*["\']?.*>'
+
                                 );
 
     /**

@@ -164,7 +164,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     }
 
     /**
-    *   tries to translate a given string, also trying using the regexp's whcih might be in the DB
+    *   tries to translate a given string, it also tries using the regexp's which might be in the DB
     *
     *   @access     public
     *   @author     Wolfram Kriesing <wolfram@kriesing.de>
@@ -175,9 +175,19 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     */
     function translate( $string , $lang )
     {
-        $res = $this->simpleTranslate( $string , $lang );
+//FIXXME extract the reg-exp thingy from the translateMarkup method and call 
+// it explicitly here, and once we have found a translation stop the process,
+// so we dont translate stuff that is already translated again, 
+// i.e. 'Data saved' is translated into 'Daten gespeichert' and if we continue
+// as we do now it will translate 'Date' into 'Datum' which results in 'Datumn gespeichert'
+// which is big bullshit
+// and the second thing: do only translate full words, then the above wouldnt happen neither
 
-        if( $res == $string ) // if the select didnt translate the string we need to go thru all the strings
+        $res = $this->simpleTranslate( $string , $lang );
+        // if the select didnt translate the string we need to go thru all the strings
+        // which contain parts of regular expressions, so we can leave out all
+        // the pure strings, this should save some time
+        if( $res == $string )
         {
             $temp = $this->possibleMarkUpDelimiters;    // remember the delimiters
             $this->possibleMarkUpDelimiters = array(''=>'');    // dont use any delimiters
@@ -211,6 +221,11 @@ class I18N_Messages_Translate extends Tree_OptionsDB
             return $this->_translated['strings'];
         }
 
+		// for the translation API, we need to have the long sentences at first, since translating a single word
+		// might screw up the entire content, like translating 'i move to germany' and starting to tranlate the 
+		// word 'move' makes it impossible to properly translate the entire phrase
+		// even though this problem can not really happen, since we check for delimiters around the string that
+		// shall be translated see $posDelimiters
         $query = sprintf(   'SELECT d.string as translated,d.*,s.* '.   // d.string shall be named 'translated'
                                                                         // but we still need all the rest from the destination language table
                                                                         // and s.* overwrites d.string but we dont need it we have it in 'translated'
@@ -219,6 +234,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
                                                                 // sentences first and single words at last
                             $this->getOption('tablePrefix'),$this->getOption('sourceLanguage'), // build the source language name
                             $this->getOption('tablePrefix'),$lang );    // build the destination language name
+                            
         $res = $this->dbh->getAll( $query );
         if( DB::isError($res) )
         {
@@ -249,6 +265,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     {
         if( $lang == $this->getOption('sourceLanguage') )   // we dont need to translate a string from the source language to the source language
         {
+        	// this would be a cool feature, if i get it done :-)
             $url=$this->getOption('translatorUrl');
             if( $url )
             {
@@ -260,17 +277,17 @@ class I18N_Messages_Translate extends Tree_OptionsDB
 
         $this->getAll( $lang );          // get all the possible strings from the DB
 
-// for the translation API, we need to have the long sentences at first, since translating a single word
-// might screw up the entire content, like translating 'i move to germany' and starting to tranlate the word 'move'
-// makes it impossible to properly translate the entire phrase
-// even though this problem can not really happen, since we check for delimiters around the string that
-// shall be translated see $posDelimiters
-
 // FIXXME replace all spaces by something like this: (\s*|<br>|<br/>|<font.*>|</font>|<i>|</i>|<b>|</b>|&nbsp;)
 // simply all those formatting tags which dont really cancel the phrase that should be translated
 // and put them back in the translated string
 // by filling $x in the right place and updating $lastSubpattern
 // then it will be really cool and the text to translate will be recognized with any kind of space inbetween
+// *NO* 
+// we dont want to do the above thing, since the formatting inside a text needs to be taken care of
+// by the translator, this method here has no chance to know that 'this is a <b>user</b> from germany'
+// has to become 'dies ist ein <b>Benutzer</b> aus Deutschland', the grammar of languages might be so different,
+// that the marked part can be in a totally different place in the destination language string!
+
         if(is_array($this->_translated['strings']) && sizeof($this->_translated['strings']))
         foreach( $this->_translated['strings'] as $aString )             // search for each single string and try to translate it
         {
@@ -278,34 +295,43 @@ class I18N_Messages_Translate extends Tree_OptionsDB
             // we use 2 strings that we search for, one is the real text as from the db
             // the second $htmlSourceString is the source string but with all non html characters
             // translated using htmlentities, in case someone has been programming proper html :-)
-            $sourceString = preg_quote(trim($aString['string']));
-            $htmlSourceString = preg_quote(htmlentities(trim($aString['string'])));
-            // escape all slashes, since preg_quote doenst do that :-(
-            $sourceString = str_replace('/','\/',$sourceString);
-            $htmlSourceString = str_replace('/','\/',$htmlSourceString);
-
-            if( $aString['numSubPattern'] )         // if the string is a regExp, we need to update $lastSubpattern
-            {
-                $sourceString = $aString['string'];// we should not preg_quote the string
-                $htmlSourceString = htmlentities($aString['string']);// we should not preg_quote the string
-
-                $lastSubpattern = '$'.( 2 + $aString['numSubPattern'] );    // set $lastSubpattern properly
-            }
-
-            if( $aString['convertToHtml'] )         // shall the translated string be converted to HTML, or does it may be contain HTML?
+            
+            // shall the translated string be converted to HTML, or does it may be contain HTML?
+            if( $aString['convertToHtml'] ) 
                 $translated = htmlentities($aString['translated']);
             else
                 $translated = $aString['translated'];
 
-            // in the DB the spaceholders start with $1, but here we need it
-            // to start with $2, that's what the following does
-            preg_match_all ( '/\$(\d)/' , $translated , $res );
-            $res[0] = array_reverse($res[0]);   // reverse the arrays, since we replace $1 by $2 and then $2 by $3 ...
-            $res[1] = array_reverse($res[1]);   // ... if we wouldnt reverse all would become $<lastNumber>
-            foreach( $res[0] as $index=>$aRes )
+            if( $aString['numSubPattern'] )// if the string is a regExp, we need to update $lastSubpattern
             {
-                $aRes = preg_quote($aRes);
-                $translated = preg_replace( '/'.$aRes.'/' , '\$'.($res[1][$index]+1) , $translated );
+            	// we dont preg_quote the strings which contain regExps's
+            	// if chars like '.' or alike which also appear in regExps they have to be 
+            	// escaped by the person who enters the source-string (may be we do that better one day)
+                $sourceString = $aString['string'];
+                $htmlSourceString = htmlentities($aString['string']);// we should not preg_quote the string
+
+                $lastSubpattern = '$'.( 2 + $aString['numSubPattern'] );    // set $lastSubpattern properly
+
+	            // in the DB the spaceholders start with $1, but here we need it
+ 	           	// to start with $2, that's what the following does
+  	          	preg_match_all ( '/\$(\d)/' , $translated , $res );            
+   	         	$res[0] = array_reverse($res[0]);   // reverse the arrays, since we replace $1 by $2 and then $2 by $3 ...
+    	        $res[1] = array_reverse($res[1]);   // ... if we wouldnt reverse all would become $<lastNumber>
+            	foreach( $res[0] as $index=>$aRes )
+            	{
+                	$aRes = preg_quote($aRes);
+                	$translated = preg_replace( '/'.$aRes.'/' , '\$'.($res[1][$index]+1) , $translated );
+            	}
+            }
+            else
+            {
+            	// in none regExp's source strings we better quote the chars which could be
+            	// mistakenly seen as regExp chars
+	        	$sourceString = preg_quote(trim($aString['string']));
+ 	           	$htmlSourceString = preg_quote(htmlentities(trim($aString['string'])));
+  	          	// escape all slashes, since preg_quote doenst do that :-(
+   	         	$sourceString = str_replace('/','\/',$sourceString);
+    	        $htmlSourceString = str_replace('/','\/',$htmlSourceString);            
             }
 
             foreach( $this->possibleMarkUpDelimiters as $begin=>$end )  // go thru all the delimiters and try to translate the strings
@@ -320,23 +346,20 @@ class I18N_Messages_Translate extends Tree_OptionsDB
 //   nowrap>
 //
 //
-                // add possible spaces and html spaces before and after
-                // by putting the spaces with the delimiters they will get added again before and after as they were before :-)
-                $begin = '[\\s|&nbsp;]*'.$begin;
-                $end = '[\\s|&nbsp;]*'.$end;
-
                 // replace all spaces in the source string by \s* so that there can be spaces
-                // as many as one wants and even newlines
-                $sourceString = preg_replace('/\s+/','[\\s|&nbsp;]*',$sourceString);
-                $htmlSourceString = preg_replace('/\s+/s','[\\s|&nbsp;]*',$htmlSourceString);
+                // as many as one wants 
+                // and even newlines (the modifier s in the preg_replace takes care of that)
+                $sourceString = preg_replace('/\s+/','\\s*',$sourceString);
+                $htmlSourceString = preg_replace('/\s+/s','\\s*',$htmlSourceString);
 
                 $_hashCode = md5($input);
-                $input = preg_replace(  '/('.$begin.')'.$sourceString.'('.$end.')/i' ,
+                $input = preg_replace(  '/('.$begin.')'.$sourceString.'('.$end.')/s' ,
                                         '$1'.$translated."$lastSubpattern" ,
                                         $input );
 
                 // if the regExp above didnt have no effect try this one with all html characters translated
-                // if we wouldnt check this i had the effect that something was translated twice ... dont know exactly why but it did :-)
+                // if we wouldnt check this i had the effect that something was translated twice ... 
+                // dont know exactly why but it did :-)
                 if( $_hashCode == md5($input) )
                 {
                     // try also to translate the string with all non-HTML-characters translated using htmlentities

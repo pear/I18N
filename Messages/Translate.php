@@ -224,6 +224,8 @@ class I18N_Messages_Translate extends Tree_OptionsDB
         {
             $lastSubpattern = '$2';
             $englishString = preg_quote($aString['string']);
+            // escape all slashes, since preg_quote doenst do that :-(
+            $englishString = str_replace('/','\/',$englishString);
 
             if( $aString['numSubPattern'] )         // if the string is a regExp, we need to update $lastSubpattern
             {

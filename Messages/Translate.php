@@ -320,7 +320,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
             // translated using htmlentities, in case someone has been programming proper html :-)
             
             // shall the translated string be converted to HTML, or does it may be contain HTML?
-            if( $aString['convertToHtml'] )
+            if( isset($aString['convertToHtml']) && $aString['convertToHtml'] )
                 $translated = htmlentities($aString['translated']);
             else
                 $translated = $aString['translated'];
@@ -372,8 +372,8 @@ class I18N_Messages_Translate extends Tree_OptionsDB
                 $numSubPatterns = array(0,0);
                 $begin = $delimiters[0];
                 $end = $delimiters[1];
-                if( $delimiters[2] )     $numSubPatterns[0] = $delimiters[2];
-                if( $delimiters[3] )     $numSubPatterns[1] = $delimiters[3];
+                if( isset($delimiters[2]) )     $numSubPatterns[0] = $delimiters[2];
+                if( isset($delimiters[3]) )     $numSubPatterns[1] = $delimiters[3];
 
                 // replace all spaces in the source string by \s* so that there can be spaces
                 // as many as one wants 

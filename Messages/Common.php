@@ -34,9 +34,9 @@ class I18N_Messages_Common
 {
 
     /**
-    *   @var    array   $list   this is simply a list of (all) languages, i extend it whenever a new language is added
+    *   @var    array   $list   this is simply a list of (all) languages, I extend it whenever a new language is added
     */
-    var $list = array('en','de','es','fr');
+    var $list = array('en','de','es','fr','it');
 
     /**
     *   @var    array   $
@@ -44,7 +44,8 @@ class I18N_Messages_Common
     var $langString = array('en'=>'english',
                             'de'=>'german',
                             'es'=>'spanish',
-                            'fr'=>'french'     );
+                            'fr'=>'french',
+                            'it'=>'italian' );
 
     /**
     *
@@ -82,7 +83,7 @@ class I18N_Messages_Common
     *   @return     string  iso-string for the language
     *
     */
-    function get( $string )
+    function determineLanguage( $string )
     {
         // we make it very simple for now,
         // this should be done using a db one day, either one that "learns" or one which is already a huge dictionary
@@ -104,7 +105,17 @@ class I18N_Messages_Common
                                             'je','tu','il','elle','nous','vous','ils','elles','ma','mon','ta','ton','notre','votre',
                                             'por','quoi','quand','qui','ou','combien',
                                             'pour','par','apres','ce','mais','et','ou','oui','non','en','avec',
-                                            'suis','est','avoir')         );
+                                            'suis','est','avoir'),
+
+                            // italian provided by: Simone Cortesi <simone@cortesi.com>
+                            'it' => array(  'il','lo','la','i','gli','le',
+                                            'questo','quello',
+                                            'io','tu','lui','lei','ella','egli','noi','voi','loro','essi',
+                                            'mio','tuo','suo','nostro','vostro',
+                                            'chi','perché','quanto','quando','dove',
+                                            'di','a','da','in','con','su','per','tra','fra',
+                                            'essere','fare','avere')
+                          );
 
         $splitString = explode(' ',$string);        // get each single word in a field
         foreach( $splitString as $key=>$aString )   // remove spaces around the word and make it lower case

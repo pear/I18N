@@ -20,6 +20,20 @@
 
 require_once 'PEAR.php';
 
+// define those here, since the dateTime and currency 
+// use those constants too
+define( 'I18N_NUMBER_FLOAT' ,           1 );
+define( 'I18N_NUMBER_INTEGER' ,         2 );
+
+
+define( 'I18N_CURRENCY_LOCAL',          1 );
+define( 'I18N_CURRENCY_INTERNATIONAL',  2 );
+
+                      
+// this is the offset for the custom index
+define( 'I18N_CUSTOM_FORMATS_OFFSET',   100);
+
+
 /**
 *
 *   @package    I18N

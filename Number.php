@@ -20,11 +20,6 @@
 
 require_once 'I18N/Format.php';
                                      
-define( I18N_NUMBER_FLOAT ,     1 );
-define( I18N_NUMBER_INTEGER ,   2 );    
-
-define( I18N_CUSTOM_FORMATS_OFFSET, 100);
-
 /**
 *   this is just a basic implementation for now, but one day
 *   this

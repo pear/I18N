@@ -25,7 +25,6 @@ define( 'I18N_DATETIME_MEDIUM' ,        3 );
 define( 'I18N_DATETIME_LONG' ,          4 );
 define( 'I18N_DATETIME_FULL' ,          5 );
 
-define( 'I18N_CUSTOM_FORMATS_OFFSET' ,  100 );
 
   
 /**

@@ -56,5 +56,13 @@ class I18N_Common_es
                             I18N_DATETIME_FULL      =>  'H:i T O'
                         );
 
+    /**
+    *   the NUMBER stuff
+    *   @var    array   the same parameters as they have to be passed to the number_format-funciton
+    */
+    var $numberFormat = array(
+                              I18N_NUMBER_FLOAT   =>  array('3',',','.'),
+                              I18N_NUMBER_INTEGER =>  array('0',',','.'),
+                             );
 }
 ?>

@@ -54,7 +54,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
     *   @var    array   $possibleMarkUpDelimiters
     */
     var $possibleMarkUpDelimiters = array(
-                                    '>\s*'                          =>  '\s*<', // this mostly applies, that a text is inbetween '>' and '<'
+                                    '>[^<]*'                        =>  '[^>]*<', // this mostly applies, that a text is inbetween '>' and '<'
                                     '<\s*input .*value=["\']?\s*'   =>  '\s*["\']?.*>'  // this is for input button's values
                                 );
 
@@ -223,13 +223,20 @@ class I18N_Messages_Translate extends Tree_OptionsDB
         foreach( $this->translated['strings'] as $aString )             // search for each single string and try to translate it
         {
             $lastSubpattern = '$2';
-            $englishString = preg_quote($aString['string']);
+            // we use 2 strings that we search for, one is the real text as from the db
+            // the second $htmlSourceString is the source string but with all non html characters
+            // translated using htmlentities, in case someone has been programming proper html :-)
+            $sourceString = preg_quote(trim($aString['string']));
+            $htmlSourceString = preg_quote(htmlentities(trim($aString['string'])));
             // escape all slashes, since preg_quote doenst do that :-(
-            $englishString = str_replace('/','\/',$englishString);
+            $sourceString = str_replace('/','\/',$sourceString);
+            $htmlSourceString = str_replace('/','\/',$htmlSourceString);
 
             if( $aString['numSubPattern'] )         // if the string is a regExp, we need to update $lastSubpattern
             {
-                $englishString = $aString['string'];// we should not preg_quote the string
+                $sourceString = $aString['string'];// we should not preg_quote the string
+                $htmlSourceString = htmlentities($aString['string']);// we should not preg_quote the string
+
                 $lastSubpattern = '$'.( 2 + $aString['numSubPattern'] );    // set $lastSubpattern properly
             }
 
@@ -242,7 +249,7 @@ class I18N_Messages_Translate extends Tree_OptionsDB
             // to start with $2, that's what the following does
             preg_match_all ( '/\$(\d)/' , $translated , $res );
             $res[0] = array_reverse($res[0]);   // reverse the arrays, since we replace $1 by $2 and then $2 by $3 ...
-            $res[1] = array_reverse($res[1]);   // ... if we wouldnt reverse all would be $<lastNumber>
+            $res[1] = array_reverse($res[1]);   // ... if we wouldnt reverse all would become $<lastNumber>
             foreach( $res[0] as $index=>$aRes )
             {
                 $aRes = preg_quote($aRes);
@@ -251,7 +258,17 @@ class I18N_Messages_Translate extends Tree_OptionsDB
 
             foreach( $this->possibleMarkUpDelimiters as $begin=>$end )  // go thru all the delimiters and try to translate the strings
             {
-                $input = preg_replace(  '/('.$begin.')'.$englishString.'('.$end.')/i' ,
+                // replace all spaces in the source string by \s* so that there can be spaces
+                // as many as one wants and even newlines
+                $sourceString = preg_replace('/\s+/','\\s*',$sourceString);
+                $htmlSourceString = preg_replace('/\s+/s','\\s*',$htmlSourceString);
+
+                $input = preg_replace(  '/('.$begin.')'.$sourceString.'('.$end.')/i' ,
+                                        '$1'.$translated."$lastSubpattern" ,
+                                        $input );
+                // try also to translate the string with all non-HTML-characters translated using htmlentities
+                // may be someone was creating proper html :-)
+                $input = preg_replace(  '/('.$begin.')'.$htmlSourceString.'('.$end.')/is' ,
                                         '$1'.$translated."$lastSubpattern" ,
                                         $input );
             }

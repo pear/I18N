@@ -21,7 +21,7 @@
 /**
 *
 * //instantiate Locale_Negotiator
-* $negotiator       = & new Locale_Negotiator();
+* $negotiator       = & new I18N_Negotiator();
 * 
 * //define which language[s] your site supports :: optional
 * $supportLangs     = array('fr','jp');
@@ -81,17 +81,19 @@ class I18N_Negotiator{
      * @param : string   Default Charset
      * @param : string   Default Country
      */
-    function I18N_Negotiator($defaultLanguage = 'en', $defaultCharset = 'ISO-8859-1', $defaultCountry = '')
+    function I18N_Negotiator($defaultLanguage = "en", $defaultCharset = "ISO-8859-1", $defaultCountry = "")
     {
         if($_SERVER) {
-            $HTTP_ACCEPT_LANGUAGE = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-            $HTTP_ACCEPT_CHARSET = $_SERVER['HTTP_ACCEPT_CHARSET'];
+            $HTTP_ACCEPT_LANGUAGE = ( in_array("HTTP_ACCEPT_LANGUAGE",
+				array_keys($_SERVER)) ) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : "";
+            $HTTP_ACCEPT_CHARSET = ( in_array("HTTP_ACCEPT_CHARSET",
+				array_keys($_SERVER)) ) ? $_SERVER['HTTP_ACCEPT_CHARSET'] : "";
         } else {
             global $HTTP_ACCEPT_LANGUAGE,$HTTP_ACCEPT_CHARSET;
         }
         $this->_defaultCountry = $defaultCountry;
         $this->_defaultLanguage = $defaultLanguage;
-        $this->_defaultCharset = $defaultCharest;
+        $this->_defaultCharset = $defaultCharset;
         $langs = explode(',',$HTTP_ACCEPT_LANGUAGE);
         foreach($langs AS $lang_tag) {
             // Cut off any q-value that might come after a semi-colon

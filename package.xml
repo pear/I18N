@@ -36,8 +36,9 @@ Localizing Numbers, DateTime and currency is also implemented.
         <license>PHP</license>
         <state>beta</state>
         <date>2002-??-??</date>
-        <notes>
-            - added french support, by Aurélien Tellier
+        <notes>                 
+            - added italian support by Lorenzo Alberton
+            - added french support by Aurélien Tellier
             - some E_ALL fixes
         </notes>
 

@@ -20,6 +20,11 @@
 
 require_once('PEAR.php');
 
+/**
+*
+*   @package    I18N
+*
+*/
 class I18N_Common extends PEAR {
 
     // {{{ properties

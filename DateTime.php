@@ -19,15 +19,20 @@
 
 require_once 'I18N/Format.php';
 
-define( I18N_DATETIME_SHORT ,       1 );
-define( I18N_DATETIME_DEFAULT ,     2 );
-define( I18N_DATETIME_MEDIUM ,      3 );
-define( I18N_DATETIME_LONG ,        4 );
-define( I18N_DATETIME_FULL ,        5 );
+define( 'I18N_DATETIME_SHORT' ,         1 );
+define( 'I18N_DATETIME_DEFAULT' ,       2 );
+define( 'I18N_DATETIME_MEDIUM' ,        3 );
+define( 'I18N_DATETIME_LONG' ,          4 );
+define( 'I18N_DATETIME_FULL' ,          5 );
 
-define( I18N_CUSTOM_FORMATS_OFFSET ,        100 );
+define( 'I18N_CUSTOM_FORMATS_OFFSET' ,  100 );
 
-
+  
+/**
+*
+*   @package    I18N 
+*
+*/
 class I18N_DateTime extends I18N_Format
 {
 

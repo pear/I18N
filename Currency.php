@@ -19,10 +19,15 @@
 // $Id$
 
 require_once 'I18N/Number.php';
-          
+
 define( I18N_CURRENCY_LOCAL,        1 );
 define( I18N_CURRENCY_INTERNATIONAL,2 );
 
+/**
+*
+*   @package    I18N
+*
+*/
 class I18N_Currency extends I18N_Number
 {
     /**

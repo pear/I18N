@@ -31,6 +31,8 @@ define( I18N_CUSTOM_FORMATS_OFFSET, 100);
 *       http://java.sun.com/docs/books/tutorial/i18n/format/numberpattern.html
 *   should be implemented, anyone with a DecimalFormat-class please step forward :-)
 *
+*   @package    I18N
+*
 */
 class I18N_Number extends I18N_Format
 {

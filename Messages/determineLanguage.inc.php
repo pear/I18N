@@ -27,24 +27,24 @@
                                             'he','she','him','her','his',
                                             'who','why','that','what',
                                             'with','has','been',
-                                            'is','of','from','for'),
-                            'de' => array(  'der','die','das','des','dem',
+                                            'is','of','from','for')
+                            ,'de' => array( 'der','die','das','des','dem',
                                             'er','sie','es','ich','du','wir','ihr',
                                             'warum','wieso','wie','wo','weshalb','was',
-                                            'habe','haben','machen','tun','ist'),
-                            'es' => array(  'lo','la','las','los','esto','es',
+                                            'habe','haben','machen','tun','ist')
+                            ,'es' => array( 'lo','la','las','los','esto','es',
                                             'el','yo','tu','ella','su','mi','ti',
                                             'por','que','cuanto','cuando','donde',
                                             'para','desde','hasta','luego','por','y','o','con',
-                                            'hacer','hace','tener','esta','estar'),
-                            'fr' => array(  'le','la','les',
+                                            'hacer','hace','tener','esta','estar')
+                            ,'fr' => array( 'le','la','les',
                                             'je','tu','il','elle','nous','vous','ils','elles','ma','mon','ta','ton','notre','votre',
                                             'por','quoi','quand','qui','ou','combien',
                                             'pour','par','apres','ce','mais','et','ou','oui','non','en','avec',
-                                            'suis','est','avoir'),
+                                            'suis','est','avoir')
 
                             // italian provided by: Simone Cortesi <simone@cortesi.com>
-                            'it' => array(  'il','lo','la','i','gli','le',
+                            ,'it' => array( 'il','lo','la','i','gli','le',
                                             'questo','quello',
                                             'io','tu','lui','lei','ella','egli','noi','voi','loro','essi',
                                             'mio','tuo','suo','nostro','vostro',
@@ -52,7 +52,7 @@
                                             'di','a','da','in','con','su','per','tra','fra',
                                             'essere','fare','avere')
                             // Polish provided by: Piotr Klaban <makler@man.torun.pl>
-                            'pl' => array(  'ten', 'ta', 'to', 'tego', 'mnie', 'nami',
+                            ,'pl' => array( 'ten', 'ta', 'to', 'tego', 'mnie', 'nami',
                                             'ja', 'ty', 'on', 'ona', 'ono', 'oni', 'my', 'wy',
                                             'dla', 'po', 'przed', 'za', 'miêdzy',
                                             'ale', 'albo', 'czy', 'kto', 'kiedy', 'kiedy¶', 'co', 'dlaczego',
@@ -60,7 +60,7 @@
                                             'czyj', 'czyja', 'czyje',
                                             'wczoraj', 'dzisiaj', 'jutro',
                                             'jest', 'jestem', 'jeste¶', 'jeste¶my', 'jeste¶cie', 's±',
-                                            'ma', 'mia³em', 'mia³', 'by³', 'bêdzie', 'by³em'),
+                                            'ma', 'mia³em', 'mia³', 'by³', 'bêdzie', 'by³em')
                           );
 
 ?>

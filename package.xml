@@ -38,6 +38,9 @@ Localizing Numbers, DateTime and currency is also implemented.
         <date>2002-??-??</date>
         <notes>
 * added russian support by Antony Dovgal
+* added slovenian support by Matej Dakol
+* added portugese by Bruno Pedro
+* hungarian by Kovács Gergely
         </notes>
 
         <filelist>

@@ -2,3 +2,5 @@ TODO
 
 - add setEncoding for utf8 etc.
 - split I18N_Message into a seperate package
+- add I18N_Static_DateTime, I18N_Static_* to enable static method calls, such as
+    I18N_Static_DateTime::format($timestamp,DE_de);

@@ -1,4 +1,0 @@
-TODO
-
-- add setEncoding for utf8 etc.
-- split I18N_Message into a seperate package

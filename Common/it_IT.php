@@ -26,7 +26,8 @@ class I18N_Common_it_IT extends I18N_Common_it
     */
     var $currencyFormats =  array(
 //                                  I18N_CURRENCY_LOCAL         =>  array("% \u020A", '2',',','.'),                                    I18N_CURRENCY_LOCAL         =>  array( '% &euro;' , '2' , ',', '.'),
-                                    I18N_CURRENCY_INTERNATIONAL =>  array('% Eur' ,   '2',',','.')
+                                    I18N_CURRENCY_LOCAL         =>  array('% &euro;',   '2',',','.'),
+                                    I18N_CURRENCY_INTERNATIONAL =>  array('% Eur'   ,   '2',',','.')
                                 );
 
 }

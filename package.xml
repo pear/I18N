@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE package SYSTEM "../../php4/pear/package.dtd">
+<!-- do not use the "Type" attribute here, that one is only for
+     generated package.xml files -->
+<package version="1.0">
+    <name>I18N</name>
+    <summary>
+        Internationalization package
+    </summary>
+    <description>
+    </description>
+    <maintainers>
+        <maintainer>
+            <user>cain</user>
+            <name>Wolfram Kriesing</name>
+            <email>wolfram@kriesing.de</email>
+            <role>lead</role>
+        </maintainer>
+    </maintainers>
+    <release>
+        <license>PHP</license>
+        <state>snapshot</state>
+        <notes>
+            Initial snapshot release
+        </notes>
+        <filelist>
+            <dir name="/" baseinstalldir="I18N">
+                <file role="php">Common.php</file>
+                <file role="php">Country.php</file>
+                <file role="php">Language.php</file>
+                <file role="php">Negotiator.php</file>
+                <dir name="Messages">
+                    <file role="php">Common.php</file>
+                    <file role="php">File.php</file>
+                    <file role="php">Translate.php</file>
+                    <file role="php">determineLanguage.inc.php</file>
+                </dir>
+                <dir name="examples" role="doc">
+                    <file role="doc">I18N_Message.php</file>
+                    <file role="doc">I18N_Message_Translate.php</file>
+                    <file role="doc">I18N_Message_Translate.tpl</file>
+                    <file role="doc">I18N_Negotiator.php</file>
+                </dir>
+            </dir>
+        </filelist>
+    </release>
+</package>

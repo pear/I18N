@@ -10,8 +10,9 @@ Internationalization package
 
     <description>
 This package supports you to localize your applications.
-Currently multiple ways of supporting translation are implemented
+Multiple ways of supporting translation are implemented
 and methods to determine the current users (browser-)language.
+Localizing Numbers, DateTime and currency is also possible.
     </description>
 
     <maintainers>
@@ -31,12 +32,12 @@ and methods to determine the current users (browser-)language.
     </maintainers>
 
     <release>
-        <version>0.8</version>
+        <version>0.8.2</version>
         <license>PHP</license>
-        <state>devel</state>
-		<date>2002-10-25</date>
+        <state>beta</state>
+        <date>2002-11-22</date>
         <notes>
-            Initial release
+            - added DateTime, Number, Currency
         </notes>
 
         <filelist>
@@ -45,6 +46,10 @@ and methods to determine the current users (browser-)language.
                 <file role="php" name="Country.php" />
                 <file role="php" name="Language.php" />
                 <file role="php" name="Negotiator.php" />
+                <file role="php" name="DateTime.php" />
+                <file role="php" name="Number.php" />
+                <file role="php" name="Format.php" />
+                <file role="php" name="Currency.php" />
 
                 <dir name="Messages">
                     <file role="php" name="Common.php" />
@@ -53,11 +58,28 @@ and methods to determine the current users (browser-)language.
                     <file role="php" name="determineLanguage.inc.php" />
                 </dir>
 
-                <dir name="examples" role="doc">
+                <dir name="Common">
+                    <file role="php" name="de.php" />
+                    <file role="php" name="de_AT.php" />
+                    <file role="php" name="de_DE.php" />
+                    <file role="php" name="en.php" />
+                    <file role="php" name="en_US.php" />
+                    <file role="php" name="en_UK.php" />
+                    <file role="php" name="es.php" />
+                    <file role="php" name="es_ES.php" />
+                    <file role="php" name="fr.php" />
+                    <file role="php" name="fr_FR.php" />
+                </dir>
+
+                <dir name="docs" role="doc">
                     <file role="doc" name="I18N_Message.php" />
                     <file role="doc" name="I18N_Message_Translate.php" />
                     <file role="doc" name="I18N_Message_Translate.tpl" />
                     <file role="doc" name="I18N_Negotiator.php" />
+                    
+                    <file role="doc" name="I18N_DateTime.php" />
+                    <file role="doc" name="I18N_Number.php" />
+                    <file role="doc" name="I18N_Currency.php" />
                 </dir>
             </dir>
         </filelist>

@@ -1,11 +1,11 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
+//
 // +----------------------------------------------------------------------+
-// | PHP version 4.0                                                      |
+// | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997, 1998, 1999, 2000, 2001, 2002 The PHP Group       |
+// | Copyright (c) 1997-2002 The PHP Group                                |
 // +----------------------------------------------------------------------+
-// | This source file is subject to version 2.0 of the PHP license,       |
+// | This source file is subject to version 2.02 of the PHP license,      |
 // | that is bundled with this package in the file LICENSE, and is        |
 // | available at through the world-wide-web at                           |
 // | http://www.php.net/license/2_02.txt.                                 |
@@ -13,53 +13,175 @@
 // | obtain it through the world-wide-web, please send a note to          |
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
-// | Authors: Naoki Shima <murahachibu@php.net>                           |
-// |                                                                      |
-// +----------------------------------------------------------------------+//
-// $Id$
+// | Authors: Wolfram Kriesing <wolfram@kriesing.de>                      |
+// +----------------------------------------------------------------------+
+//
+//  $Id$
+//
 
-require_once 'PEAR.php';
 /**
-* Message Translation
-* 
+*   this class provides language functionality, such as
+*   determining the language of a given string, etc.
+*   iso639-1 compliant, 2 letter code is used
+*   iso639-1 http://www.loc.gov/standards/iso639-2/langcodes.html
+*
+*   @package  Language
+*   @access   public
+*   @author   Wolfram Kriesing <wolfram@kriesing.de>
+*   @version  2001/12/29
 */
-
-class I18N_Messages_Common extends PEAR 
+class I18N_Messages_Common
 {
-    // {{ variable declaration
 
     /**
-    * Holds messageID to corresponding text mapping
+    *   @var    array   $list   this is simply a list of (all) languages, I extend it whenever a new language is added
+    */
+    var $list = array('en','de','es','fr','it');
+
+    /**
+    *   @var    array   $
+    */
+    var $langString = array('en'=>'english',
+                            'de'=>'german',
+                            'es'=>'spanish',
+                            'fr'=>'french',
+                            'it'=>'italian' );
+
+    /**
+    * Holds messageID to corresponding message mapping
     *
     * @type  : array
     * @access: private
     */
-    var $_text = array();
-
-    // }}
+    var $_message = array();
 
     /**
-     * Look for and return the text corresponds to the messageID passed. 
-     * Returns messageID when the corresponding text is not found
-     */
-    function get($messageID = "")
+    *
+    *
+    *   @access     public
+    *   @author
+    *   @version
+    */
+    function __construct( )
     {
-        return ($messageID !== "" && is_array($this->_text) && in_array($messageID, array_keys($this->_text))) ? $this->_text[$messageID] :$messageID;
+# FIXXME pass a resource to the constructor which can be used to determine the
+# language of a string, it should be possible to use XML, DB, or whatever
+# this can then be used as a replacement for the array as used now
     }
 
     /**
-     * Alias for getText(). Function name might not be appropriate because it conflicts PEAR coding standard 
-     * that this is meant to be public function
-     *
-     * @param : string        messageID
-     * @return: string        corresponding Text
-     * @access: public
-     */
+    *   for pre-ZE2 compatibility
+    *
+    *   @access     public
+    *   @author
+    *   @version
+    */
+    function I18N_Messages_Common( )
+    {
+        return $this->__construct();
+    }
+
+    /**
+    *   trys to get the language of a given string
+    *
+    *   @access     public
+    *   @author     Wolfram Kriesing <wolfram@kriesing.de>
+    *   @version    01/12/29
+    *   @param      string  $string     the string which is used to try and determine its language
+    *   @return     string  iso-string for the language
+    *
+    */
+    function determineLanguage( $string )
+    {
+        // we make it very simple for now,
+        // this should be done using a db one day, either one that "learns" or one which is already a huge dictionary
+// FIXXME may be each word should be a regular expression, to catch different
+// forms (i.e.: like, likes), this is more relevant for languages other than english
+// but regexps may consume much more time when parsing all the languages ...
+        $languages = array( 'en' => array(  'the','it','this',
+                                            'he','she','him','her','his',
+                                            'who','why','that','what',
+                                            'with','has','been',
+                                            'is','of','from','for'),
+                            'de' => array(  'der','die','das','des','dem',
+                                            'er','sie','es','ich','du','wir','ihr',
+                                            'warum','wieso','wie','wo','weshalb','was',
+                                            'habe','haben','machen','tun','ist'),
+                            'es' => array(  'lo','la','las','los','esto','es',
+                                            'el','yo','tu','ella','su','mi','ti',
+                                            'por','que','cuanto','cuando','donde',
+                                            'para','desde','hasta','luego','por','y','o','con',
+                                            'hacer','hace','tener','esta','estar'),
+                            'fr' => array(  'le','la','les',
+                                            'je','tu','il','elle','nous','vous','ils','elles','ma','mon','ta','ton','notre','votre',
+                                            'por','quoi','quand','qui','ou','combien',
+                                            'pour','par','apres','ce','mais','et','ou','oui','non','en','avec',
+                                            'suis','est','avoir'),
+
+                            // italian provided by: Simone Cortesi <simone@cortesi.com>
+                            'it' => array(  'il','lo','la','i','gli','le',
+                                            'questo','quello',
+                                            'io','tu','lui','lei','ella','egli','noi','voi','loro','essi',
+                                            'mio','tuo','suo','nostro','vostro',
+                                            'chi','perché','perche','quanto','quando','dove',
+                                            'di','a','da','in','con','su','per','tra','fra',
+                                            'essere','fare','avere')
+                          );
+
+        // replace all non word-characters by a space, i hope that is ok for all languages
+        $string = preg_replace( '/[\W\s]/' , ' ' ,$string);
+
+        $splitString = explode(' ',$string);        // get each single word in a field
+        foreach( $splitString as $key=>$aString )   // remove spaces around the word and make it lower case
+            $splitString[$key] = strtolower(trim($aString));
+
+        // simply intersect each language array with the array that we created by splitting the string
+        // and the result that's size is the biggest is our language
+        foreach( $languages as $lang=>$aLanguage )
+            $results[$lang] = sizeof(array_intersect($splitString,$aLanguage));
+
+        arsort($results);
+        reset ($results);
+        list($lang,) = each($results);
+
+        return $lang;
+
+    }
+
+    /**
+    * Look for and return the message corresponds to the messageID passed. 
+    * Returns messageID when the corresponding message is not found
+    * 
+    * @return: string     
+    * @access: public
+    * @author: Naoki Shima <naoki@avantexchange.com>
+    */
+    function get($messageID = "")
+    {
+        return ($messageID !== "" && is_array($this->_message) && in_array($messageID, array_keys($this->_message))) ? $this->_message[$messageID] :$messageID;
+    }
+
+    /**
+    * Alias for get(). Function name might not be appropriate because it conflicts PEAR coding standard 
+    * that this is meant to be public function
+    *
+    * @param : string        messageID
+    * @return: string        corresponding message
+    * @access: public
+    * @author: Naoki Shima <naoki@avantexchange.com>
+    */
     function _($messageID = "")
     {
         return $this->get($messageID);
     }
 
+    /**
+    * Set message ID to corresponding string
+    * 
+    * @return: boolean
+    * @access: public
+    * @author: Naoki Shima <naoki@avantexchange.com>
+    */
     function set($messageID = "",$str = "")
     {
         if($messageID === "") {
@@ -67,11 +189,12 @@ class I18N_Messages_Common extends PEAR
         }
         if($str === "" && is_array($messageID)) {
             // user is passing an array
-            $this->_text = $messageID;
+            $this->_message = $messageID;
         } else {
-            $this->_text[$messageID] = $str;
+            $this->_message[$messageID] = $str;
         }
         return true;
     }
-}
+
+} // end of class
 ?>

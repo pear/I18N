@@ -32,15 +32,13 @@ Localizing Numbers, DateTime and currency is also implemented.
     </maintainers>
 
     <release>
-        <version>0.8.3</version>
+        <version>0.8.4</version>
         <license>PHP</license>
         <state>beta</state>
-        <date>2002-12-01</date>
+        <date>2002-12-02</date>
         <notes>
-            - added DateTime, Number, Currency
-            - added a lot of functionality to the DateTime class
-            - added polish as first new language
-            - enhanced the markup-translate a bit
+            - optimize the translate routine in I18N_Messages_Translate
+            - bugfix in DateTime which was sometimes translating strange things
         </notes>
 
         <filelist>

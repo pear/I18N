@@ -25,6 +25,7 @@
     $strings[] = 'Esto es una prueba para todos vosotros ahi!';
     $strings[] = 'je tu il elle nous vous - need french input here :-)';
     $strings[] = 'Questo è un test per tutti voi là fuori!';
+    $strings[] = 'PHP ró?ni si? od skryptów wykonywanych po stronie klienta takich jak np.';
 
     foreach( $strings as $aString )
         print "<b>$aString</b> --- seems to be of the language: <b>".I18N_Messages_Common::determineLanguage($aString).'</b><br>';

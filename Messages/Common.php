@@ -95,9 +95,9 @@ class I18N_Messages_Common
         // and to reduce compile time for php, since it will only be included when needed
         // the file that gets included might become very big
         if( $source=='default' )
-            require_once('I18N/Messages/determineLanguage.inc.php');
+            include('I18N/Messages/determineLanguage.inc.php');
         else
-            require_once($source);  // include the file given as parameter, it only needs to provide an array, as in the above included file
+            include($source);  // include the file given as parameter, it only needs to provide an array, as in the above included file
 
         // replace all non word-characters by a space, i hope that is ok for all languages
         $string = preg_replace( '/[\W\s]/' , ' ' ,$string);

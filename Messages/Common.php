@@ -34,6 +34,8 @@
 class I18N_Messages_Common
 {
 
+    // {{ properties
+
     /**
     *   @var    array   $list   this is simply a list of (all) languages, I extend it whenever a new language is added
     */
@@ -56,6 +58,8 @@ class I18N_Messages_Common
     */
     var $_message = array();
 
+    // {{ constructor
+
     /**
     *
     *
@@ -70,6 +74,9 @@ class I18N_Messages_Common
 # this can then be used as a replacement for the array as used now
     }
 
+    // }}
+    // {{ I18N_Messages_Common()
+
     /**
     *   for pre-ZE2 compatibility
     *
@@ -82,6 +89,9 @@ class I18N_Messages_Common
         return $this->__construct();
     }
 
+    // }}
+    // {{ determineLanuguage()
+    
     /**
     *   trys to get the language of a given string
     *
@@ -149,6 +159,9 @@ class I18N_Messages_Common
 
     }
 
+    // }}
+    // {{ get()
+
     /**
     * Look for and return the message corresponds to the messageID passed. 
     * Returns messageID when the corresponding message is not found
@@ -161,6 +174,9 @@ class I18N_Messages_Common
     {
         return ($messageID !== "" && is_array($this->_message) && in_array($messageID, array_keys($this->_message))) ? $this->_message[$messageID] :$messageID;
     }
+
+    // }}
+    // {{ _()
 
     /**
     * Alias for get(). Function name might not be appropriate because it conflicts PEAR coding standard 
@@ -175,6 +191,9 @@ class I18N_Messages_Common
     {
         return $this->get($messageID);
     }
+
+    // }}
+    // {{ set()
 
     /**
     * Set message ID to corresponding string
@@ -197,6 +216,9 @@ class I18N_Messages_Common
         return true;
     }
 
+    // }}
+    // {{ setCharset()
+
     /** 
     * Set charset of message
     *
@@ -211,6 +233,9 @@ class I18N_Messages_Common
         $this->_charset = $charset;
     }
 
+    // }}
+    // {{ getCharset()
+
     /**
     * Returns charset of message. Returns null if it's not set.
     *
@@ -222,5 +247,53 @@ class I18N_Messages_Common
     {
         return ($this->_charset ? $this->_charset: false);
     }
+
+    // }}
+    // {{ bindDomain()
+
+    /**
+    * Bind domain to use
+    * If domain is not passed and there's already a value set to domain,
+    * then this method returns current domain.
+    *
+    * @param : string
+    *
+    * @return: string       Current domain
+    * @access: public
+    * @author: Naoki Shima
+    */
+    function bindDomain($domain = '')
+    {
+        if($domain === '') {
+            return ($this->_domain ? $this->_domain : '');
+        }
+        $this->_domain = $domain;
+        return $domain;
+    }
+
+    // }}
+    // {{ bindLanguage()
+
+    /**
+    * Bind language to use
+    * If language is not passed and there's already a value set to domain,
+    * then this method returns current domain.
+    *
+    * @param : string
+    *
+    * @return: string       Current language
+    * @access: public
+    * @author: Naoki Shima <naoki@avantexchange.com>
+    */
+    function bindLanguage($lang = '')
+    {
+        if($lang === '') {
+            return ($this->_lang ? $this->_lang : '');
+        }
+        $this->_lang = $lang;
+        return $lang;
+    }
+
+    // }}
 } // end of class
 ?>

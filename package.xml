@@ -32,15 +32,12 @@ Localizing Numbers, DateTime and currency is also implemented.
     </maintainers>
 
     <release>
-        <version>0.8.5</version>
+        <version>0.8.6</version>
         <license>PHP</license>
         <state>beta</state>
-        <date>2002-03-11</date>
+        <date>2002-??-??</date>
         <notes>
-* added italian support by Lorenzo Alberton
-* added french support by Aurélien Tellier
-* some E_ALL fixes
-* I18N_Message add option 'caseSensitive'
+* added russian support by Antony Dovgal
         </notes>
 
         <filelist>
@@ -75,6 +72,7 @@ Localizing Numbers, DateTime and currency is also implemented.
                     <file role="php" name="pl.php" />
                     <file role="php" name="it.php" />
                     <file role="php" name="it_IT.php" />
+                    <file role="php" name="ru.php" />
                 </dir>
 
                 <dir name="docs" role="doc">
@@ -93,6 +91,18 @@ Localizing Numbers, DateTime and currency is also implemented.
     </release>
 
     <changelog>
+        <release>
+            <version>0.8.5</version>
+            <license>PHP</license>
+            <state>beta</state>
+            <date>2002-03-11</date>
+            <notes>
+    * added italian support by Lorenzo Alberton
+    * added french support by Aurélien Tellier
+    * some E_ALL fixes
+    * I18N_Message add option 'caseSensitive'
+            </notes>
+        </release>
         <release>
             <version>0.8.4</version>
             <license>PHP</license>

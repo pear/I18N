@@ -319,7 +319,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatShort( $timestamp )
+    function formatShort( $timestamp=null )
     {
         return $this->format( $timestamp , I18N_DATETIME_SHORT );
     }
@@ -337,7 +337,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatDefault( $timestamp )
+    function formatDefault( $timestamp=null )
     {
         return $this->format( $timestamp , I18N_DATETIME_DEFAULT );
     }
@@ -355,7 +355,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatMedium( $timestamp )
+    function formatMedium( $timestamp=null )
     {
         return $this->format( $timestamp , I18N_DATETIME_MEDIUM );
     }
@@ -373,7 +373,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatLong( $timestamp )
+    function formatLong( $timestamp=null )
     {
         return $this->format( $timestamp , I18N_DATETIME_LONG );
     }
@@ -391,7 +391,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatFull( $timestamp )
+    function formatFull( $timestamp=null )
     {
         return $this->format( $timestamp , I18N_DATETIME_FULL );
     }
@@ -412,7 +412,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatDateShort( $timestamp )
+    function formatDateShort( $timestamp=null )
     {
         return $this->formatDate( $timestamp , I18N_DATETIME_SHORT );
     }
@@ -430,7 +430,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatDateDefault( $timestamp )
+    function formatDateDefault( $timestamp=null )
     {
         return $this->formatDate( $timestamp , I18N_DATETIME_DEFAULT );
     }
@@ -448,7 +448,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatDateMedium( $timestamp )
+    function formatDateMedium( $timestamp=null )
     {
         return $this->formatDate( $timestamp , I18N_DATETIME_MEDIUM );
     }
@@ -466,7 +466,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatDateLong( $timestamp )
+    function formatDateLong( $timestamp=null )
     {
         return $this->formatDate( $timestamp , I18N_DATETIME_LONG );
     }
@@ -484,7 +484,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatDateFull( $timestamp )
+    function formatDateFull( $timestamp=null )
     {
         return $this->formatDate( $timestamp , I18N_DATETIME_FULL );
     }
@@ -506,7 +506,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatTimeShort( $timestamp )
+    function formatTimeShort( $timestamp=null )
     {
         return $this->formatTime( $timestamp , I18N_DATETIME_SHORT );
     }
@@ -524,7 +524,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatTimeDefault( $timestamp )
+    function formatTimeDefault( $timestamp=null )
     {
         return $this->formatTime( $timestamp , I18N_DATETIME_DEFAULT );
     }
@@ -542,7 +542,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatTimeMedium( $timestamp )
+    function formatTimeMedium( $timestamp=null )
     {
         return $this->formatTime( $timestamp , I18N_DATETIME_MEDIUM );
     }
@@ -560,7 +560,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatTimeLong( $timestamp )
+    function formatTimeLong( $timestamp=null )
     {
         return $this->formatTime( $timestamp , I18N_DATETIME_LONG );
     }
@@ -578,7 +578,7 @@ class I18N_DateTime extends I18N_Format
     *   @return     string  the formatted timestamp
     *   @access     public
     */
-    function formatTimeFull( $timestamp )
+    function formatTimeFull( $timestamp=null )
     {
         return $this->formatTime( $timestamp , I18N_DATETIME_FULL );
     }

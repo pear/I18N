@@ -17,14 +17,22 @@
 // +----------------------------------------------------------------------+//
 // $Id$
 
-require_once('I18N/Common/en_GB.php');
+require_once('I18N/Common/en.php');
 
-/**
-*
-*   @deprecated     use I18N_Common_en_GB instead, it's just in here for BC
-*/
-class I18N_Common_en_UK extends I18N_Common_en_GB
+class I18N_Common_en_GB extends I18N_Common_en
 {        
+
+// TO BE DONE
+    /**
+    *   @var    array   the first is the currency symbol, second is the international currency symbol
+    */
+    var $currencyFormats =  array(
+                                    I18N_CURRENCY_LOCAL         =>  array( "???%" ,    '2' , '.' , ',' ),
+                                    I18N_CURRENCY_INTERNATIONAL =>  array( '??? %' , '2' , '.' , ',' ),
+                                );
+
+
+
 }
 
 ?>

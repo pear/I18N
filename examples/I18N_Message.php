@@ -2,17 +2,16 @@
 
     /**
     *
-    *   test of Message_Common
+    *   test of I18N_Message_Common
     *
     */
     print 'TEST I18N_Messages_Common<br><br>';
     require_once( 'I18N/Messages/Common.php' );
 
     $strings[] = 'This is a test for all of you out there';
-    $strings[] = 'Das ist ein Test für euch alle da draussen.';
+    $strings[] = 'Das ist ein Test für Euch alle da draussen.';
     $strings[] = 'Esto es una prueba para todos vosotros ahi.';
-    // i just copied that from an italian page of a friend :-) but i have no idea what it means 
-    $strings[] = 'Due spiaggie e il porto sono raggiungibili comodamente a piedi.';
+    $strings[] = 'Questo è un test per tutti voi là fuori.';
 
     foreach( $strings as $aString )
         print "<b>$aString</b> --- seems to be of the language: ".I18N_Messages_Common::determineLanguage($aString).'<br>';

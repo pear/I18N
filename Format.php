@@ -66,7 +66,7 @@ class I18N_Format extends PEAR
     var $_currentFormat = null;
 
     var $_customFormats = array();
-
+    
     /**
     *
     *
@@ -75,7 +75,7 @@ class I18N_Format extends PEAR
     *   @return     void
     *   @access     public
     */
-    function I18N_Format( $locale )
+    function I18N_Format($locale)
 // FIXXME if no locale is given try to use the local on of the system
 // if it cant be detected use english and the user probable will use setFormat anyway
     {
@@ -90,6 +90,28 @@ class I18N_Format extends PEAR
         }
     }
          
+    /**
+    *   This method creates a singleton instance for the given class.
+    *   This is here, just so the DateTime, Number and Currency dont have
+    *   to implement the same thing again, they only need to have a public method
+    *   singleton() which calls this method here.
+    *
+    *   @see    singleton()
+    *   @static 
+    *   @access private
+    *   @param  string  the locale to use, i.e. 'de_DE'
+    *   @param  string  the name of the class to return an object for
+    *   @return object  an instance of this class
+    */
+    function &_singleton($locale,$class)
+    {
+        static $obj;
+        if (!isset($obj[$class])) {
+            $obj[$class] = new $class($locale);
+        }
+        return $obj[$class];
+    }
+        
     /**
     *   define a custom format given by $format and return the $format-id
     *   the format-id can be used to call format( x , format-id ) to

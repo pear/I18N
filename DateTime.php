@@ -59,7 +59,7 @@ class I18N_DateTime extends I18N_Format
                             'April',
                             'May',
                             'June',
-                            'Juli',
+                            'July',
                             'August',
                             'September',
                             'October',
@@ -90,6 +90,26 @@ class I18N_DateTime extends I18N_Format
 
     var $_customFormats = array();
 
+    /**
+    *   Use this method to setup and to retreive the static instance of the I18N_DateTime.
+    *   <code>
+    *   // setup the object with the proper locale
+    *   I18N_DateTime::singleton($locale);
+    *   // and anywhere in your code you can call the following
+    *   // and you get the instance for this very locale, you specified via singleton()
+    *   $dateTime = I18N_DateTime::singleton();
+    *   </code>
+    *
+    *   @static 
+    *   @access public
+    *   @param  string  the locale to use, i.e. 'de_DE'
+    *   @return object  an instance of this class
+    */
+    function &singleton($locale=null)
+    {
+        return I18N_Format::_singleton($locale,__CLASS__);
+    }
+    
     /**
     *   returns the timestamp formatted according to the locale and the format-mode
     *   use this method to format a date and time timestamp

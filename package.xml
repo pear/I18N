@@ -1,135 +1,189 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE package SYSTEM "../../php4/pehttp://pear.php.net/dtd/package-1.0">
-<!-- do not use the "Type" attribute here, that one is only for
-     generated package.xml files -->
-<package version="1.0">
-    <name>I18N</name>
-    <summary>
-Internationalization package
-    </summary>
-
-    <description>
-This package supports you to localize your applications.
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>I18N</name>
+ <channel>pear.php.net</channel>
+ <summary>Internationalization package</summary>
+ <description>This package supports you to localize your applications.
 Multiple ways of supporting translation are implemented
 and methods to determine the current users (browser-)language.
 Localizing Numbers, DateTime and currency is also implemented.
-    </description>
+    
+ </description>
+ <lead>
+  <name>Wolfram Kriesing</name>
+  <user>cain</user>
+  <email>wolfram@kriesing.de</email>
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Richard Heyes</name>
+  <user>richard</user>
+  <email>richard@php.net</email>
+  <active>yes</active>
+ </developer>
+ <date>2010-02-13</date>
+ <time>20:17:16</time>
+ <version>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP</license>
+ <notes>
+QA release:
+- Convert to package 2.0
+- Fix request #12507: de_CH by Bjoern Zapadlo
+- Stabilize after 7 years of beta, version 1.0.0.
+ </notes>
 
-    <maintainers>
-        <maintainer>
-            <user>cain</user>
-            <name>Wolfram Kriesing</name>
-            <email>wolfram@kriesing.de</email>
-            <role>lead</role>
-        </maintainer>
+ <contents>
+  <dir name="/">
+   <dir name="Common">
+    <file baseinstalldir="I18N" name="af.php" role="php" />
+    <file baseinstalldir="I18N" name="da_DK.php" role="php" />
+    <file baseinstalldir="I18N" name="de.php" role="php" />
+    <file baseinstalldir="I18N" name="de_AT.php" role="php" />
+    <file baseinstalldir="I18N" name="de_DE.php" role="php" />
+    <file baseinstalldir="I18N" name="en.php" role="php" />
+    <file baseinstalldir="I18N" name="en_GB.php" role="php" />
+    <file baseinstalldir="I18N" name="en_UK.php" role="php" />
+    <file baseinstalldir="I18N" name="en_US.php" role="php" />
+    <file baseinstalldir="I18N" name="en_ZA.php" role="php" />
+    <file baseinstalldir="I18N" name="es.php" role="php" />
+    <file baseinstalldir="I18N" name="es_ES.php" role="php" />
+    <file baseinstalldir="I18N" name="fr.php" role="php" />
+    <file baseinstalldir="I18N" name="fr_FR.php" role="php" />
+    <file baseinstalldir="I18N" name="hu.php" role="php" />
+    <file baseinstalldir="I18N" name="it.php" role="php" />
+    <file baseinstalldir="I18N" name="it_IT.php" role="php" />
+    <file baseinstalldir="I18N" name="nl.php" role="php" />
+    <file baseinstalldir="I18N" name="nl_NL.php" role="php" />
+    <file baseinstalldir="I18N" name="pl.php" role="php" />
+    <file baseinstalldir="I18N" name="pt.php" role="php" />
+    <file baseinstalldir="I18N" name="ru.php" role="php" />
+    <file baseinstalldir="I18N" name="sl.php" role="php" />
+   </dir> <!-- /Common -->
+   <dir name="docs">
+    <file baseinstalldir="I18N" name="I18N_Currency.php" role="doc" />
+    <file baseinstalldir="I18N" name="I18N_DateTime.php" role="doc" />
+    <file baseinstalldir="I18N" name="I18N_Message.php" role="doc" />
+    <file baseinstalldir="I18N" name="I18N_Message_Translate.php" role="doc" />
+    <file baseinstalldir="I18N" name="I18N_Message_Translate.tpl" role="doc" />
+    <file baseinstalldir="I18N" name="I18N_Negotiator.php" role="doc" />
+    <file baseinstalldir="I18N" name="I18N_Number.php" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="Messages">
+    <file baseinstalldir="I18N" name="Common.php" role="php" />
+    <file baseinstalldir="I18N" name="determineLanguage.inc.php" role="php" />
+    <file baseinstalldir="I18N" name="File.php" role="php" />
+    <file baseinstalldir="I18N" name="Translate.php" role="php" />
+   </dir> <!-- /Messages -->
+   <file baseinstalldir="I18N" name="Common.php" role="php" />
+   <file baseinstalldir="I18N" name="Country.php" role="php" />
+   <file baseinstalldir="I18N" name="Currency.php" role="php" />
+   <file baseinstalldir="I18N" name="DateTime.php" role="php" />
+   <file baseinstalldir="I18N" name="Format.php" role="php" />
+   <file baseinstalldir="I18N" name="Language.php" role="php" />
+   <file baseinstalldir="I18N" name="Negotiator.php" role="php" />
+   <file baseinstalldir="I18N" name="Number.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
 
-        <maintainer>
-            <user>richard</user>
-            <name>Richard Heyes</name>
-            <email>richard@php.net</email>
-            <role>developer</role>
-        </maintainer>
-    </maintainers>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
 
-    <release>
-        <version>0.8.6</version>
-        <license>PHP</license>
-        <state>beta</state>
-        <date>2002-08-07</date>
-        <notes>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-02-13</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+QA release:
+- Convert to package 2.0
+- Fix request #12507: de_CH by Bjoern Zapadlo
+- Stabilize after 7 years of beta, version 1.0.0.
+   </notes>
+  </release>
+
+  <release>
+   <version>
+    <release>0.8.6</release>
+    <api>0.8.6</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2002-08-07</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
 * added singleton() method to DateTime, Number and Currency
 * added russian support by Antony Dovgal
 * added slovenian support by Matej Dakol
 * added portugese by Bruno Pedro
-* hungarian by Kovács Gergely
+* hungarian by KovÃ¡cs Gergely
 * nl+nl_NL Jeroen Houben
 * fixed July misspelling
 + da_DK by Tommy Ipsen
-        </notes>
+   </notes>
+  </release>
 
-        <filelist>
-            <dir name="/" baseinstalldir="I18N">
-                <file role="php" name="Common.php" />
-                <file role="php" name="Country.php" />
-                <file role="php" name="Language.php" />
-                <file role="php" name="Negotiator.php" />
-                <file role="php" name="DateTime.php" />
-                <file role="php" name="Number.php" />
-                <file role="php" name="Format.php" />
-                <file role="php" name="Currency.php" />
+  <release>
+   <version>
+    <release>0.8.5</release>
+    <api>0.8.5</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2002-03-11</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+* added italian support by Lorenzo Alberton
+* added french support by AurÃ©lien Tellier
+* some E_ALL fixes
+* I18N_Message add option &apos;caseSensitive&apos;
+   </notes>
+  </release>
 
-                <dir name="Messages">
-                    <file role="php" name="Common.php" />
-                    <file role="php" name="File.php" />
-                    <file role="php" name="Translate.php" />
-                    <file role="php" name="determineLanguage.inc.php" />
-                </dir>
-
-                <dir name="Common">
-                    <file role="php" name="af.php" />
-                    <file role="php" name="da_DK.php" />
-                    <file role="php" name="de.php" />
-                    <file role="php" name="de_AT.php" />
-                    <file role="php" name="de_DE.php" />
-                    <file role="php" name="en.php" />
-                    <file role="php" name="en_GB.php" />
-                    <file role="php" name="en_UK.php" />
-                    <file role="php" name="en_US.php" />
-                    <file role="php" name="en_ZA.php" />
-                    <file role="php" name="es.php" />
-                    <file role="php" name="es_ES.php" />
-                    <file role="php" name="fr.php" />
-                    <file role="php" name="fr_FR.php" />
-                    <file role="php" name="hu.php" />
-                    <file role="php" name="it.php" />
-                    <file role="php" name="it_IT.php" />
-                    <file role="php" name="nl.php" />
-                    <file role="php" name="nl_NL.php" />
-                    <file role="php" name="pl.php" />
-                    <file role="php" name="pt.php" />
-                    <file role="php" name="ru.php" />
-                    <file role="php" name="sl.php" />
-                </dir>
-
-                <dir name="docs" role="doc">
-                    <file role="doc" name="I18N_Message.php" />
-                    <file role="doc" name="I18N_Message_Translate.php" />
-                    <file role="doc" name="I18N_Message_Translate.tpl" />
-                    <file role="doc" name="I18N_Negotiator.php" />
-                    
-                    <file role="doc" name="I18N_DateTime.php" />
-                    <file role="doc" name="I18N_Number.php" />
-                    <file role="doc" name="I18N_Currency.php" />
-                </dir>
-            </dir>
-        </filelist>
-
-    </release>
-
-    <changelog>
-        <release>
-            <version>0.8.5</version>
-            <license>PHP</license>
-            <state>beta</state>
-            <date>2002-03-11</date>
-            <notes>
-    * added italian support by Lorenzo Alberton
-    * added french support by Aurélien Tellier
-    * some E_ALL fixes
-    * I18N_Message add option 'caseSensitive'
-            </notes>
-        </release>
-        <release>
-            <version>0.8.4</version>
-            <license>PHP</license>
-            <state>beta</state>
-            <date>2002-12-02</date>
-            <notes>
-                - optimize the translate routine in I18N_Messages_Translate
-                - bugfix in DateTime which was sometimes translating strange things
-            </notes>
-        </release>
-    </changelog>
-
-
+  <release>
+   <version>
+    <release>0.8.4</release>
+    <api>0.8.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2002-12-02</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+- optimize the translate routine in I18N_Messages_Translate
+- bugfix in DateTime which was sometimes translating strange things
+   </notes>
+  </release>
+ </changelog>
 </package>
